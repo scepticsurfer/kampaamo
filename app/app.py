@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from flask import Flask, render_template, session, redirect, url_for
+from flask import Flask, render_template, session, redirect, url_for,flash
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
@@ -43,6 +43,7 @@ mail = Mail(app)
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
+    email=db.Column(db.String(128))
     name = db.Column(db.String(64), unique=True, index=True)
     password_hash= db.Column(db.String(128))
     is_active=db.Column(db.Enum)
@@ -114,30 +115,30 @@ def page_not_found(e):
 def internal_server_error(e):
     return render_template('500.html'), 500
 
-#@app.route("/")
-#def index():
-#    return render_template("index.html")#у этого файла путь указан правильно
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/")
 def index():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(name=form.username.data).first()
+    return render_template("index.html")#у этого файла путь указан правильно
+
+#@app.route('/', methods=['GET', 'POST'])
+#def index():
+#    form = RegistrationForm()
+#    if form.validate_on_submit():
+#        user = User.query.filter_by(name=form.username.data).first()
         
-        if user is None:
-            user = User(name=form.username.data)
-            db.session.add(user)
-            db.session.commit()
-            session['known'] = False
-            # if app.config['FLASKY_ADMIN']:
-            send_email(form.email.data, 'New User',
-                           'mail/new_user', user=user)
-        else:
-            session['known'] = True
-        session['name'] = form.name.data
-        return redirect(url_for('index'))
-    return render_template('index.html', form=form, name=session.get('name'),
-                           known=session.get('known', False))
+#        if user is None:
+#            user = User(name=form.username.data)
+#            db.session.add(user)
+#            db.session.commit()
+#            session['known'] = False
+#            # if app.config['FLASKY_ADMIN']:
+#            send_email(form.email.data, 'New User',
+#                           'mail/new_user', user=user)
+#        else:
+#            session['known'] = True
+#        session['name'] = form.name.data
+#        return redirect(url_for('index'))
+#    return render_template('index.html', form=form, name=session.get('name'),
+#                           known=session.get('known', False))
 
 
 
@@ -156,16 +157,16 @@ def trainers():
 def feedback():
     return render_template("contacts/feedback.html")
 
-#@app.route("/auth/register", methods=['GET', 'POST'])
-#def register():
-#    form = RegistrationForm()
-#    if form.validate_on_submit():
-#        user = User(email=form.email.data,
-#                        name=form.username.data,
-#                        password_hash=form.password.data)
-#        db.session.add(user)
-#        db.session.commit()
-#        flash('You can now login.')
-#        return redirect(url_for('auth.login'))
-#    return render_template("auth/register.html", form=form)
+@app.route("/auth/register", methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(email=form.email.data,
+                        name=form.username.data,
+                        password_hash=form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('You can now login.')
+        return redirect(url_for('template/auth.login'))
+    return render_template("auth/register.html", form=form)
     

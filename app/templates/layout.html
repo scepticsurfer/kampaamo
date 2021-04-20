@@ -86,50 +86,43 @@ if (isset($_COOKIE['user_id'])) {
           </div>
             
           <div class="navbar-nav">
-            <?php if ((isset($_SESSION['admin']) && $_SESSION['admin']!=1 && $_SESSION['trainer']!=1) || !isset($_SESSION['admin'])){?>  
-            <a <?php if ($address == "cart") echo $full; ?> 
-              href="/<?= $env['app_dir'] ?>/cart/cart.php" 
+            
+            <a  href="" 
               class="nav-item custom-cart-link"><i class="bi bi-cart"></i>
             </a>
 
-            <?php } 
-            if (isset($_SESSION['admin'])) {          
-                if($_SESSION['admin']==1){?>
+            
 
-            <a <?php if ($address == "admin_page") echo $active; ?> 
-                href="/<?= $env['app_dir'] ?>/admins/admin_page.php" 
+            <a  
+                href="" 
                 class="nav-item nav-link"><i class="bi bi-person-circle" style="font-size:18px; color:lightgreen;"></i>
             </a>
 
-            <?php
-                }elseif($_SESSION['trainer']==1){ ?>
-            <a <?php if ($address == "trainer_page") echo $active; ?> 
-                href="/<?= $env['app_dir'] ?>/trainers/trainer_page.php" 
+            
+            <a 
+                href="" 
                 class="nav-item nav-link"><i class="bi bi-person-circle" style="font-size:18px; color:lightgreen;"></i>
             </a>
-            <?php
-                } else{ ?>
-            <a <?php if ($address == "client_page") echo $active; ?> 
-                href="/<?= $env['app_dir'] ?>/customers/client_page.php" 
+            
+            <a 
+                href="" 
                 class="nav-item nav-link"><i class="bi bi-person-circle" style="font-size:18px; color:lightgreen;"></i>
             </a>
             <?php
               }
             ?>
 
-            <a <?php if ($address == "logout") echo $active; ?> 
-                href="/<?= $env['app_dir'] ?>/forms/logout.php" 
+            <a  
+                href="" 
                 class="nav-item nav-link">Kirjaudu ulos
             </a>
-            <?php
-            } else {
-            ?>
-             <!-- <a 
-                  href=""
+            
+              <a 
+                  href="{{ url_for('register') }}"
                   class="nav-item nav-link">Luo tili
-              </a>-->
-              <a <?php if ($address == "login") echo $active; ?> 
-                  href="/<?= $env['app_dir'] ?>/forms/login.php" 
+              </a>
+              <a 
+                  href="" 
                   class="nav-item nav-link"><i class="bi bi-person-circle" style="font-size:18px;"></i>
               </a>
             <?php
