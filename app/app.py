@@ -16,7 +16,9 @@ from dotenv import load_dotenv
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from flask import Flask, render_template, session, redirect, url_for,flash
+from flask import Flask, render_template, session, redirect, url_for,flash,current_app
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from flask import current_app
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
@@ -46,10 +48,11 @@ class User(db.Model):
     email=db.Column(db.String(128))
     name = db.Column(db.String(64), unique=True, index=True)
     password_hash= db.Column(db.String(128))
-    is_active=db.Column(db.Enum)
+    # is_active=db.Column(db.Enum)
+    confirmed = db.Column(db.Boolean, default=False)
     admin=db.Column(db.Enum)
     hairdresser=db.Column(db.Enum)
-    #role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    # role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
 
     @property
     def password(self):
@@ -61,6 +64,22 @@ class User(db.Model):
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def generate_confirmation_token(self, expiration=3600):
+        s = Serializer(current_app.config['SECRET_KEY'], expiration)
+        return s.dumps({'confirm': self.id}).decode('utf-8')
+
+    def confirm(self, token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token.encode('utf-8'))
+        except:
+            return False
+        if data.get('confirm') != self.id:
+            return False
+        self.confirmed = True
+        db.session.add(self)
+        return True    
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -166,7 +185,9 @@ def register():
                         password_hash=form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('You can now login.')
-        return redirect(url_for('template/auth.login'))
-    return render_template("auth/register.html", form=form)
-    
+        token = user.generate_confirmation_token()
+        send_email(user.email, 'Confirm Your Account',
+                   'auth/email/confirm', user=user, token=token)
+        flash('A confirmation email has been sent to you by email.')
+        return redirect(url_for('main.index'))
+    return render_template('auth/register.html', form=form) 

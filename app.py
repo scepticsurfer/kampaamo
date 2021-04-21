@@ -117,7 +117,7 @@ def internal_server_error(e):
 
 @app.route("/")
 def index():
-    return render_template("app/index.html")#у этого файла путь указан правильно
+    return render_template("index.html")#у этого файла путь указан правильно
 
 #@app.route('/', methods=['GET', 'POST'])
 #def index():
@@ -163,6 +163,6 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('You can now login.')
-        return redirect(url_for('templates/auth.login'))
+        return redirect(url_for('login'))
     return render_template("auth/register.html", form=form)
     

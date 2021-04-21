@@ -42,6 +42,7 @@ if (isset($_COOKIE['user_id'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}{% endblock %}</title>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/custom.css">
@@ -55,6 +56,7 @@ if (isset($_COOKIE['user_id'])) {
     <link rel="icon" type="image/x-icon" href="/<?= $env['app_dir'] ?>/favicon.ico">
     
   </head>
+
 
   <body class="custom-body">
 
@@ -133,9 +135,18 @@ if (isset($_COOKIE['user_id'])) {
       <!-- NAVIGATION ENDS -->
 
       <!-- CONTENT STARTS -->
-
+    
       <div class="container-fluid custom-margin-container">
-        {% block content %}
+        {% block alert_content %}
+       <!-- <div class="container">-->
+          {% for message in get_flashed_messages() %}
+          <div class="alert alert-warning">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          {{ message }}
+          </div>
+          {% endfor %}
+          {% block content %}{% endblock %}
+          <!--</div>-->
         {% endblock %}
         <div class="custom-space">
           <p></p>
@@ -143,7 +154,7 @@ if (isset($_COOKIE['user_id'])) {
       </div>
 
     <!-- CONTENT ENDS -->
-
+   
     <!-- FOOTER STARTS -->
     <footer class="custom-footer">
       <div class="container-fluid">
