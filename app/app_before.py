@@ -16,9 +16,11 @@ from dotenv import load_dotenv
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from flask import Flask, render_template, session, redirect, url_for,flash,current_app
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from flask import current_app
+from flask import Flask, render_template, session, redirect, url_for,flash
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer# for working with tokens in class User
+from flask import current_app # for working with tokens in class User
+# from ..email import send_email # for email sending
+from flask_login import current_user # for @auth.route('/confirm/<token>') in this file. Install flask_login before using
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
@@ -176,12 +178,13 @@ def trainers():
 def feedback():
     return render_template("contacts/feedback.html")
 
-@app.route("/auth/register", methods=['GET', 'POST'])
+# @app.route("/auth/register", methods=['GET', 'POST'])
+@auth.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(email=form.email.data,
-                        name=form.username.data,
+                        username=form.username.data,
                         password_hash=form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -189,5 +192,5 @@ def register():
         send_email(user.email, 'Confirm Your Account',
                    'auth/email/confirm', user=user, token=token)
         flash('A confirmation email has been sent to you by email.')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('index'))
     return render_template('auth/register.html', form=form) 
