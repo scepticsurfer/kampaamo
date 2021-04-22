@@ -29,7 +29,7 @@
 	width:290px; /*controls distance between logo and navigation links*/
 	padding: 8px 0; /*for text*/
 	margin:0; /*logo positioning*/
-	background: transparent url(../pics/i-logo4.png) no-repeat 0px 0px; /*padding around picture*/
+	background: transparent url("../static/pics/i-logo4.png") no-repeat 0px 0px; /*padding around picture*/
 	text-align:left;
 	outline: 0px solid green;
 	}
@@ -566,7 +566,7 @@ a.custom-cart-full{
   .custom-div-adds{
     width:100%; 
     height: auto; 
-    background: #99cc99 url(../pics/pattern-TRANSPARENT.png); 
+    background: #99cc99 url(../static/pics/pattern-TRANSPARENT.png);
     opacity: 0.9; 
     padding: 2%;  
     text-align:center;   
