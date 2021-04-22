@@ -111,7 +111,7 @@ if (isset($_COOKIE['user_id'])) {
             ?>
 
             <a  
-                href="" 
+                href="{{ url_for('auth.logout') }}" 
                 class="nav-item nav-link">Kirjaudu ulos
             </a>
             
