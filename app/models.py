@@ -22,8 +22,8 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), unique=True, index=True)
     # role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     password_hash = db.Column(db.String(128))
-    admin=db.Column(db.Enum)
-    hairdresser=db.Column(db.Enum)
+    admin = (db.Boolean, default=False)
+    hairdresser = (db.Boolean, default=False)
     confirmed = db.Column(db.Boolean, default=False)
 
     @property
@@ -100,3 +100,61 @@ class User(UserMixin, db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+class Service(db.Model):
+    __tablename__ = 'services'
+    id = db.Column(db.Integer, primary_key=True)
+    service_name = db.Column(db.String(64), unique=True, index=True)
+    prise = db.Column(db.DECIMAL(5, 2))
+    description = db.Column(db.String(256))
+
+    def __repr__(self):
+       return '<Service %r>' % self.service_name
+
+class ServiceTimetable(db.Model):
+    __tablename__ = 'service_timetable'
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date)
+    time = db.Column(db.DateTime)
+    service_id = db.Column(db.Integer)
+    hairdresser_id = (db.Integer)
+    status = db.Column(db.Enum('done', 'canceled','future'))
+
+    def __repr__(self):
+        return '<ServiceTimetable %r>' % self.service_id     
+class ServiceRegistration(db.Model):
+    __tablename__ = 'service_registration'
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date)
+    time = db.Column(db.DateTime)
+    timetable_id = db.Column(db.Integer)
+    service_id = db.Column(db.Integer)
+    client_id = db.Column(db.Integer)
+    hairdresser_id = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<ServiceRegistration %r>' % self.service_id
+
+class HairdresserService(db.Model):
+    __tablename__ = 'hairdresser_service'
+    id = db.Column(db.Integer, primary_key=True)
+    hairdresser_id= (db.Integer)
+    service_id = db.Column(db.Integer)
+    
+
+    def __repr__(self):
+        return '<ServiceRegistration %r>' % self.hairdresser_id 
+class Feedback(db.Model):
+    __tablename__ = 'feedback'
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date)
+    name = db.Column(db.String(64))
+    email = db.Column(db.String(64))
+    service_id = db.Column(db.Integer)
+    client_id  =db.Column(db.Integer)
+    hairdresser_id = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<ServiceRegistration %r>' % self.service_id
+
+

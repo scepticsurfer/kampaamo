@@ -3,13 +3,6 @@
 HIUSMAGIA parturi kampaamo
 {% endblock %}
 
-<?php
-if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 || $_SESSION['trainer']==1  ) {
-    header("location: ../forms/login.php");  
-    exit; 
-    }
-?>
-
 {% block content %}
     <h2 class="custom-txt-center custom-margin-bottom-4">TERVETULOA ASIAKKAAN SIVULLE</h2>  
 
