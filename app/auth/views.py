@@ -5,6 +5,7 @@ from . import auth
 from .. import db
 from ..models import User
 from ..email import send_email
+from datetime import timedelta, datetime
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm,\
     PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm
 
@@ -32,7 +33,11 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data.lower()).first()
         if user is not None and user.verify_password(form.password.data):
-            login_user(user, form.remember_me.data)
+            if form.remember_me.data:
+                duration_remember=timedelta(days=30)
+                login_user(user, form.remember_me.data,duration_remember)
+            else:
+                login_user(user, form.remember_me.data)    
             next = request.args.get('next')
             if next is None or not next.startswith('/'):
                 next = url_for('main.index')
