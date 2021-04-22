@@ -61,7 +61,7 @@ if (isset($_COOKIE['user_id'])) {
     
       <nav class="navbar navbar-expand-md fixed-top navbar-dark custom-navbar-color"> 
         <div id="logo">      
-         <h1><a href="{{ url_for('index') }}"><span>HIUSMAGIA</span></a></h1>      
+         <h1><a href="{{ url_for('main.index') }}"><span>HIUSMAGIA</span></a></h1>      
         </div>
       
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -70,15 +70,15 @@ if (isset($_COOKIE['user_id'])) {
 
         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
           <div class="navbar-nav">          
-            <a href="{{ url_for('company') }}" 
+            <a href="{{ url_for('main.company') }}" 
               class="nav-item nav-link">MEISTÄ
             </a>
             <a 
-              href="{{ url_for('trainers') }}" 
+              href="{{ url_for('main.trainers') }}" 
               class="nav-item nav-link">OHJAAJAT
             </a>
             <a 
-              href="{{ url_for('feedback') }}" 
+              href="{{ url_for('main.feedback') }}" 
               class="nav-item nav-link">OTA YHTEYTTÄ
             </a>
           </div>
@@ -116,11 +116,11 @@ if (isset($_COOKIE['user_id'])) {
             </a>
             
               <a 
-                  href="{{ url_for('register') }}"
+                  href="{{ url_for('auth.register') }}"
                   class="nav-item nav-link">Luo tili
               </a>
               <a 
-                  href="" 
+                  href="{{ url_for('auth.login') }}" 
                   class="nav-item nav-link"><i class="bi bi-person-circle" style="font-size:18px;"></i>
               </a>
             <!-- <?php

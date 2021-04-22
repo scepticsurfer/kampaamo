@@ -1,8 +1,4 @@
-# Virtual environment
-venv
-
 .env
-
 *.py[cod]
 
 # C extensions
@@ -39,3 +35,9 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# SQLite databases
+*.sqlite
+
+# Virtual environment
+venv
