@@ -14,6 +14,10 @@ def company():
 def trainers():
     return render_template("trainers/trainers.html")
 
-@main.route("/contacts/feedback/")#как прописать путь к папке???
+@main.route("/contacts/feedback/")
 def feedback():
     return render_template("contacts/feedback.html")
+    
+@main.route("/customers/client_page/")
+def client_page():
+    return render_template("customers/client_page.html")    

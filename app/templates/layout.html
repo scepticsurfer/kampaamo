@@ -92,7 +92,7 @@ if (isset($_COOKIE['user_id'])) {
             
 
             <a  
-                href="" 
+                href="{{ url_for('main.client_page') }}" 
                 class="nav-item nav-link"><i class="bi bi-person-circle" style="font-size:18px; color:lightgreen;"></i>
             </a>
 
@@ -106,12 +106,12 @@ if (isset($_COOKIE['user_id'])) {
                 href="" 
                 class="nav-item nav-link"><i class="bi bi-person-circle" style="font-size:18px; color:lightgreen;"></i>
             </a>
-            <?php
+            <!-- <?php
               }
-            ?>
+            ?> -->
 
             <a  
-                href="" 
+                href="{{ url_for('auth.logout') }}" 
                 class="nav-item nav-link">Kirjaudu ulos
             </a>
             
