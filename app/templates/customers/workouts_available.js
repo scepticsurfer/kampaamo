@@ -11,7 +11,7 @@ let workoutsAvailable = function(event) {
         selectHead.remove();
     });
     // fetching available options
-    let url = 'get_available_workouts.php?date_from=' + document.querySelector('#date_from').value + '&date_to=' 
+    let url = '/customers/client_page/aviableServises.json?date_from=' + document.querySelector('#date_from').value + '&date_to=' 
                                                       + document.querySelector('#date_to').value+ '&workout='
                                                       + document.querySelector('#title').value+ '&trainer='
                                                       + document.querySelector('#trainer').value
