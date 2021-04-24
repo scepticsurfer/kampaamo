@@ -5,6 +5,7 @@ from ..models import User#, Service,
 from sqlalchemy import text
 from flask_sqlalchemy import SQLAlchemy
 from .forms import FindClientServiceForm
+from .forms import BookTimeServiceForm
 from flask_login import current_user
 from flask import request
 
@@ -30,7 +31,7 @@ def feedback():
 @main.route("/customers/client_page/")
 def client_page():
     form = FindClientServiceForm ()
-    return render_template("customers/client_page.html", form=form)    
+    return render_template("customers/client_page.html", form=form)     
 
 @main.route("/customers/client_page/getClientServices.json") 
 def getClientServices():
@@ -76,3 +77,8 @@ def trainersJson():
         user.username
         # User.query.all()
     )
+
+@main.route("/customers/reservation/")
+def reservation():
+    form = BookTimeServiceForm ()
+    return render_template("customers/reservation.html", form=form) 

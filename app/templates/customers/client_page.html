@@ -38,8 +38,8 @@ HIUSMAGIA parturi kampaamo
 
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                            <h6 class="my-0"><a href="reservation.php" class="text-danger">Varaa aika</a></h6>
-                            <small class="text-muted">Varaa ajka ohjaajalle tai ryhmäharjoitteluun</small>
+                            <h6 class="my-0"><a href="{{ url_for('main.reservation') }}" class="text-danger">Varaa aika</a></h6>
+                            <small class="text-muted">Varaa ajka valitsemasi osaajalle</small>
                         </div>                    
                         </li>                                     
                     </ul>               
@@ -55,6 +55,7 @@ HIUSMAGIA parturi kampaamo
                                 <div class="form-group justify-content-center col-md-6 mb-4">
                                     <!--<label class="mr-4">Alkaen</label>
                                     <input type="date" class="form-control mr-5" name="date_from" id="date_from">--> 
+                                    {{ form.date_from.label }}
                                     {{ form.date_from(id="date_from", class="form-control mr-5") }}                                    
                                 </div>  
                             
@@ -62,11 +63,12 @@ HIUSMAGIA parturi kampaamo
                                 <div class="form-group justify-content-center col-md-6 mb-4">
                                     <!--<label class="mr-4">Saakka</label>
                                     <input type="date" class="form-control mr-5" name="date_to" id="date_to">-->
+                                    {{ form.date_to.label }}
                                     {{ form.date_to(id="date_to", class="form-control mr-5") }}                                    
                                 </div>
                             
                                 <div class="form-group justify-content-center col-md-12 mb-4">                                 
-                                 <div id="client_select">
+                                <div id="client_select">
                                     <!--<button type="submit" class="btn btn-block mt-0 custom-green-buy" id="client_select">Valitse ajanjakso</button>-->
                                     {{ form.submit( class="btn btn-block mt-0 custom-green-buy", id="client_select" ) }}
                                 </div>
