@@ -78,7 +78,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
                                 <div class="form-group justify-content-center col-md-6 mb-4">
                                     <!-- <label class="mr-4">Palvelut</label>-->
                                     {{ form.service_titles.label }}
-                                    {{ form.service_titles(id="", class="form-control mr-5") }}
+                                    {{ form.service_titles(id="title", class="form-control mr-5") }}
                                     
                                     <!--php starts-->
                                     <!-- <?php
@@ -110,7 +110,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
                                 <div class="form-group justify-content-center col-md-6 mb-4">
                                     <!-- <label class="mr-4">Osaajat</label> -->
                                     {{ form.hairdresser.label }}
-                                    {{ form.hairdresser(id="", class="form-control mr-5") }}
+                                    {{ form.hairdresser(id="hairdresser", class="form-control mr-5") }}
                                     <!--php starts-->
                                     <!-- <?php
                                     $titles = [];

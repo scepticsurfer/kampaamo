@@ -4,8 +4,7 @@ from flask import jsonify
 from ..models import User#, Service,
 from sqlalchemy import text
 from flask_sqlalchemy import SQLAlchemy
-from .forms import FindClientServiceForm
-from .forms import BookTimeServiceForm
+from .forms import FindClientServiceForm, BookTimeServiceForm, FindAdminServiceForm, AddAdminServiceForm
 from flask_login import current_user
 from flask import request
 
@@ -82,3 +81,13 @@ def trainersJson():
 def reservation():
     form = BookTimeServiceForm ()
     return render_template("customers/reservation.html", form=form) 
+
+@main.route("/admins/admin_page/")
+def admin_page():
+    form = FindAdminServiceForm ()
+    return render_template("admins/admin_page.html", form=form)
+
+@main.route("/admins/new_change_workout/")
+def new_change_workout():
+    form = AddAdminServiceForm ()
+    return render_template("admins/new_change_workout.html", form=form)  

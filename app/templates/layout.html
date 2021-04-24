@@ -75,7 +75,7 @@ if (isset($_COOKIE['user_id'])) {
             </a>
             <a 
               href="{{ url_for('main.trainers') }}" 
-              class="nav-item nav-link">OHJAAJAT
+              class="nav-item nav-link">PALVELUT
             </a>
             <a 
               href="{{ url_for('main.feedback') }}" 
@@ -84,13 +84,17 @@ if (isset($_COOKIE['user_id'])) {
           </div>
             
           <div class="navbar-nav">
+            <a href="{{ url_for('main.admin_page') }}" class="nav-item nav-link">
+              <i class="bi bi-person-circle" style="font-size:18px; color:lightgreen;"></i>
+            </a>
+
             {% if current_user.is_authenticated %}  
             <a  href="cart/cart.html" 
               class="nav-item custom-cart-link"><i class="bi bi-cart"></i>
             </a>           
             
             <div class="nav-item dropdown">
-              <a href="{{ url_for('main.client_page') }}" class="nav-link dropdown-toggle" data-toggle="dropdown">
+              <a href="{{ url_for('main.client_page') }}" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown">
                 <i class="bi bi-person-circle" style="font-size:18px; color:lightgreen;"></i>
               </a>
               <div class="dropdown-menu"> 
