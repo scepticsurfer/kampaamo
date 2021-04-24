@@ -30,7 +30,7 @@ $workout_id = filter_var($workout_id, FILTER_SANITIZE_STRING);
             <p></p>
             <form class="custom-form" action="new_change_workout.php?workout_id=<?php echo isset($workout_id) ? $workout_id : ''; ?>" method="post">
 
-                <h2>MUOKAA / LISAA PALVELU <?php echo (isset($workout_id)) ? "MUOKAA TREENI" : "UUSI TREENI" ?></h2>
+                <h2>MUOKAA / LISÄÄ PALVELU <?php echo (isset($workout_id)) ? "MUOKAA TREENI" : "UUSI TREENI" ?></h2>
 
                 <!--<?php echo isset($error['workout_exist']) ? $error['workout_exist'] : ''; ?>
                 <?php echo isset($error['add_success']) ? $error['add_success'] : ''; ?>
