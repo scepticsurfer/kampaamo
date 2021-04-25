@@ -8,16 +8,7 @@ from .forms import FindClientServiceForm, BookTimeServiceForm, FindAdminServiceF
 from flask_login import current_user
 from flask import request
 from ..email import send_email
-from flask import current_app
-#import os
-#from dotenv import load_dotenv
-#basedir = os.path.abspath(os.path.dirname(__file__))
-#load_dotenv(os.path.join(basedir, '.env'))
-#app = current_app 
-#app.config['FLASKY_ADMIN'] = os.environ.get('FLASKY_ADMIN')
- 
-# class Empty(object):
-    # pass
+
 
 @main.route('/')
 def index():
@@ -87,12 +78,10 @@ def cancelReservation():
 
     sql_delete="DELETE FROM service_registration WHERE `id`='" + str(cancel_id) + "'"
     result_delete = db.engine.execute(sql_delete)
-    # app = current_app 
-   # send_email(app.config['FLASKY_ADMIN'], 'Client canceled reservation',
-   
-    send_email('carie@mail.ru', 'Client canceled reservation',
-                   'auth/email/client_cancel', date=date, time=time, master=request.args.get('master'), username=current_user.username)
-               
+    
+    send_email(app.config['HIUSMAGIA_ADMIN'], 'Client canceled reservation',
+               'auth/email/client_cancel', date=date, time=time, master=request.args.get('master'), username=current_user.username)
+                  
     return (jsonify(result_1))
    
 
