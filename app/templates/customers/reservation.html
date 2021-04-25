@@ -3,12 +3,12 @@
 HIUSMAGIA parturi kampaamo
 {% endblock %}
 
-<?php
+<!--<?php
 if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer']==1  ) {
     header("location: ../forms/login.php");  
     exit;
     }
-?>
+?>-->
 
 {% block content %}
     <h2 class="custom-txt-center custom-margin-bottom-4">TERVETULOA ASIAKKAAN SIVULLE</h2>  
@@ -31,21 +31,21 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
 
                         <li class="list-group-item d-flex justify-content-between lh-condensed">                       
                         <div>
-                            <h6 class="my-0 text-secondary">ASIAKAS: <span id="user_name" style="color:black;"></span></h6>
+                            <h6 class="my-0 text-secondary">ASIAKAS: <span id="user_name" style="color:black;">{% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Stranger{% endif %}</span></h6>
                         </div>                                                         
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between lh-condensed">                       
                         <div>
-                            <h6 class="my-0"><a href="client_page.php" class="text-danger">Minun aikatauluni</a></h6>
+                            <h6 class="my-0"><a href="{{ url_for('main.client_page') }}" class="text-danger">Minun aikatauluni</a></h6>
                             <small class="text-muted">Tarkista aikataulusi valitsemasi ajanjaksolla</small>
                         </div>                                                         
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                            <h6 class="my-0"><a href="reservation.php" class="text-danger">Varaa aika</a></h6>
-                            <small class="text-muted">Varaa ajka ohjaajalle tai ryhmäharjoitteluun</small>
+                            <h6 class="my-0"><a href="{{ url_for('main.reservation') }}" class="text-danger">Varaa aika</a></h6>
+                            <small class="text-muted">Varaa ajka valitsemasi osaajalle</small>
                         </div>                    
                         </li>
 
@@ -54,85 +54,97 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
                 </div>
                 
                 <div class="col-md-8 order-md-1">
-                    <h4 class="mb-4 text-success">AJAN VARAUS OHJAAJALLE TAI RYHMÄHARJOITTELUUN</h4>
+                    <h4 class="mb-4 text-success">AJAN VARAUS OSAAJALLE</h4>
                     <form>
                         <!--Row starts-->
                         <div class="row">
                             <form class="form-inline justify-content-center mt-4"  method="get">
                             
                                 <div class="form-group justify-content-center col-md-6 mb-4">
-                                    <label class="mr-4">Alkaen</label>
-                                    <input type="date" class="form-control mr-5" name="date_from" id="date_from">                   
+                                    <!-- <label class="mr-4">Alkaen</label>
+                                    <input type="date" class="form-control mr-5" name="date_from" id="date_from"> --> 
+                                    {{ form.date_from.label }}
+                                    {{ form.date_from(id="date_from", class="form-control mr-5") }}                 
                                 </div>  
                             
                             
                                 <div class="form-group justify-content-center col-md-6 mb-4">
-                                    <label class="mr-4">Saakka</label>
-                                    <input type="date" class="form-control mr-5" name="date_to" id="date_to">
+                                    <!-- <label class="mr-4">Saakka</label>
+                                    <input type="date" class="form-control mr-5" name="date_to" id="date_to"> -->
+                                    {{ form.date_to.label }}
+                                    {{ form.date_to(id="date_to", class="form-control mr-5") }}
                                 </div>
 
                                 <div class="form-group justify-content-center col-md-6 mb-4">
-                                    <label class="mr-4">Liikuntalaji</label>
+                                    <!-- <label class="mr-4">Palvelut</label>-->
+                                    {{ form.service_titles.label }}
+                                    {{ form.service_titles(id="title", class="form-control mr-5") }}
+                                    
                                     <!--php starts-->
-                                    <?php
+                                    <!-- <?php
                                     $titles = [];
                                     $query = "SELECT title,id FROM workout_titles ORDER BY title";
                                     $result = $connect->query($query);
-
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
                                             $titles[$row['id']] = $row["title"];
                                         }
                                     }
-                                    ?>
+                                    ?> -->
                                     <!--php ends-->
 
                                     <!--options start-->
-                                    <select id="title" class=form-control name="title" value="<?php echo (isset($_GET['title'])) ? $_GET['title'] : "" ?>">
-                                    <option value="">kaikki liikuntalajit</option>
-                                    <?php
+                                    <!-- <select id="title" class=form-control name="title" value="<?php echo (isset($_GET['title'])) ? $_GET['title'] : "" ?>">
+                                    <option value="">kaikki palvelut</option>-->
+                                    <!-- <?php
                                     foreach ($titles as $id => $title) {
                                     echo "<option value=\"$id\">$title</option>";
                                     }
-                                    ?>
-                                    </select>  
+                                    ?> -->
+                                    <!--</select>-->  
                                     <!--options end-->                                                   
                                 </div>  
                             
                             
                                 <div class="form-group justify-content-center col-md-6 mb-4">
-                                    <label class="mr-4">Ohjaaja</label>
+                                    <!-- <label class="mr-4">Osaajat</label> -->
+                                    {{ form.hairdresser.label }}
+                                    {{ form.hairdresser(id="hairdresser", class="form-control mr-5") }}
                                     <!--php starts-->
-                                    <?php
+                                    <!-- <?php
                                     $titles = [];
                                     $query = "SELECT `name`,id FROM users WHERE trainer='1' ORDER BY `name`";
                                     $result = $connect->query($query);
-
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
                                             $trainers[$row['id']] = $row["name"];
                                         }
                                     }
-                                    ?>
+                                    ?> -->
                                     <!--php ends-->
 
                                     <!--options start-->
-                                    <select id="trainer" class=form-control name="trainer" >
-                                    <option value="">kaikki ohjaajat</option>
-                                    <?php
+                                    <!-- <select id="trainer" class=form-control name="trainer" >
+                                    <option value="">kaikki osaajat</option> -->
+                                    <!-- <?php
                                     foreach ($trainers as $id => $trainer) {
                                         echo "<option value=\"$id\">$trainer</option>";
                                     }
                                     ?>
-                                    </select>
+                                    </select> -->
                                     <!--options end-->
                                 </div>
                             
-                                <div class="form-group justify-content-center col-md-12 mb-4">
+                                <!-- <div class="form-group justify-content-center col-md-12 mb-4">
                                     <button type="submit" class="btn btn-block mt-0 custom-green-buy" name="submit" id="find_available">Selaa aikatauluja</button>
                                     
                                     <button type="reset" class="btn btn-block mt-2 custom-outline-button" name="submit" id="">Nollaa kaikki kentät</button>                                                            
-                                </div>                               
+                                </div> -->
+                                
+                                <div class="form-group justify-content-center col-md-12 mb-4">                                 
+                                    {{ form.submit( class="btn btn-block mt-0 custom-green-buy", id="find_available" ) }}                                   
+                                   <button type="reset" class="btn btn-block mt-2 custom-outline-button" name="submit" id="">Nollaa kaikki kentät</button> 
+                                </div>
                             
                             </form>
                         </div>
