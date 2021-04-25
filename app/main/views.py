@@ -7,7 +7,15 @@ from flask_sqlalchemy import SQLAlchemy
 from .forms import FindClientServiceForm, BookTimeServiceForm, FindAdminServiceForm, AddAdminServiceForm
 from flask_login import current_user
 from flask import request
-
+from ..email import send_email
+from flask import current_app
+#import os
+#from dotenv import load_dotenv
+#basedir = os.path.abspath(os.path.dirname(__file__))
+#load_dotenv(os.path.join(basedir, '.env'))
+#app = current_app 
+#app.config['FLASKY_ADMIN'] = os.environ.get('FLASKY_ADMIN')
+ 
 # class Empty(object):
     # pass
 
@@ -39,9 +47,8 @@ def getClientServices():
     if current_user:
         user_id=current_user.id
         # return jsonify(user_id)
-    print('user_id')
     db = SQLAlchemy()
-    sql = text("SELECT `date`,`time`,service_name,`username` FROM service_registration \
+    sql = text("SELECT `date`,`time`,service_name,`username`, service_registration.id FROM service_registration \
                 LEFT JOIN services ON service_registration.service_id=services.id \
                 LEFT JOIN users ON service_registration.hairdresser_id=users.id \
                 WHERE client_id=" + str(user_id) + " AND `date`>='" + date_from + "' AND `date`<= '" + date_to +  "'")
@@ -49,10 +56,8 @@ def getClientServices():
 
     response = []
     for row in result:
-        # record = Empty()
-        # record.date = row.date
-        # record.time = row.time
         response.append({
+            "id": str(row.id),
             "date": str(row.date),
             "time": str(row.time),
             "service_name":str(row.service_name),
@@ -62,20 +67,39 @@ def getClientServices():
     # return jsonify([(dict(row.items())) for row in result])
 
 
-@main.route("/customers/reservation/aviableServises.json") 
-def trainersJson():
+@main.route("/customers/client_page/cancelReservation.json") 
+def cancelReservation():
+    result_1 = "true"
     db = SQLAlchemy()
-    sql = text('select id, username from users')
-    result = db.engine.execute(sql)
-    return jsonify([(dict(row.items())) for row in result])
+    cancel_id= request.args.get('cancel_id')
+    master_name= request.args.get('master')
+    sql_get="SELECT *  FROM service_registration WHERE `id`='" + str(cancel_id) + "'"
+    result = db.engine.execute(sql_get)
+
+    for row in result:
+        date=row.date
+        time=row.time
+        service_id=row.service_id
+        hairdresser_id=row.hairdresser_id
+
+    sql_insert = "INSERT INTO service_timetable(`date`, `time`, service_id, hairdresser_id  ) VALUES ('" + str(date) + "','" + str(time) + "','" + str(service_id) + "','" + str(hairdresser_id) + "')"
+    result_insert = db.engine.execute(sql_insert) 
+
+    sql_delete="DELETE FROM service_registration WHERE `id`='" + str(cancel_id) + "'"
+    result_delete = db.engine.execute(sql_delete)
+    # app = current_app 
+   # send_email(app.config['FLASKY_ADMIN'], 'Client canceled reservation',
+   
+    send_email('carie@mail.ru', 'Client canceled reservation',
+                   'auth/email/client_cancel', date=date, time=time, master=request.args.get('master'), username=current_user.username)
+               
+    return (jsonify(result_1))
+   
+
     
-    # or
-    user = User.query.get(3)
-    return jsonify(
-        user.id,
-        user.username
-        # User.query.all()
-    )
+    
+    
+    
 @main.route("/customers/reservation/")
 def reservation():
     form = BookTimeServiceForm ()
