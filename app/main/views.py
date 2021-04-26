@@ -1,7 +1,7 @@
 from flask import render_template
 from . import main
 from flask import jsonify
-from ..models import User, Service
+from ..models import User, Service, ServiceTimetable, ServiceRegistration, HairdresserService
 from sqlalchemy import text
 from flask_sqlalchemy import SQLAlchemy
 from .forms import FindClientServiceForm, BookTimeServiceForm, FindAdminServiceForm, AddAdminServiceForm
@@ -157,7 +157,43 @@ def servicesAvailable():
         })
 
     return (jsonify(response))
+@main.route("/customers/reservation/makeReservation.json") 
+def makeReservation(): 
+    result_1 = "true" 
+    id_in_timetable=request.args.get('id_in_timetable')
+    if current_user:
+        client_id=current_user.id
+    db = SQLAlchemy()
+    sql = text("SELECT `date`,`time`,service_id,hairdresser_id FROM service_timetable\
+                WHERE id='" +id_in_timetable + "'")
+    result = db.engine.execute(sql)
     
+    for row in result:
+        date=str(row.date)  
+        time=str(row.time)
+        service_id=str(row.service_id)
+        hairdresser_id=str(row.hairdresser_id)   
+
+    sql_delete = text("DELETE FROM service_timetable\
+                WHERE id='" +id_in_timetable + "'")
+    result_delete = db.engine.execute(sql_delete)  
+
+    sql_insert = text("INSERT INTO service_registration (`date`,`time`,timetable_id,service_id,client_id,hairdresser_id)\
+                       VALUES ('" + str(date) +"','"+ str(time) + "','"+ str(id_in_timetable) +"','"\
+                        +str(service_id) +"','" + str(client_id)+"','"+ str(hairdresser_id) + "')")
+    result_insert = db.engine.execute(sql_insert) 
+
+    #delete_str=ServiceTimetable.query.filter_by(id=id_in_timetable).first()
+    #db.session.commit()
+    #current_db_sessions = db.session.object_session(delete_str)
+    # current_db_sessions.add(delete_str)
+    #current_db_sessions.delete(delete_str)
+    #db.session.commit()
+    # insert_str=ServiceRegistration(date=date, time=time,service_id=service_id,client_id=client_id, timetable_id=id_in_timetable, hairdresser_id=hairdresser_id, )
+    # db.session.add(insert_str)
+    # db.session.commit()
+    return (jsonify(result_1)) 
+   
     
 # admin page
 
@@ -170,3 +206,13 @@ def admin_page():
 def new_change_workout():
     form = AddAdminServiceForm ()
     return render_template("admins/new_change_workout.html", form=form)  
+
+@main.route("/test")
+def test():
+    db = SQLAlchemy()
+    me = HairdresserService(hairdresser_id=99, service_id=100)
+    db.session.add(me)
+    db.session.commit()
+    db.session.delete(me)
+    db.session.commit()
+    return jsonify(True)

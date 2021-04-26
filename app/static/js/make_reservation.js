@@ -6,17 +6,14 @@ let changeTables = function (event) {
             return;
         }
         event.preventDefault();
-        let date = element.parentElement.parentElement.children[0].innerHTML
-        let time = element.parentElement.parentElement.children[1].innerHTML
-        let title = element.parentElement.parentElement.children[2].innerHTML
-        let trainer = element.parentElement.parentElement.children[3].innerHTML
-        let url = 'reserv_change_tables.php?date=' + date + '&time=' + time + '&title=' + title + '&trainer=' + trainer;
+        let id_in_timetable = element.parentElement.parentElement.children[0].innerHTML
+        let url = '/customers/reservation/makeReservation.json?id_in_timetable=' + id_in_timetable 
         
         fetch(url)
             .then(function (response) {
                 return response.json();
             }).then(function (data) {
-                if (data.result == "true") {
+                if (data == "true") {
                     element.parentElement.parentElement.remove();
                     Swal.fire({
                         title: '',
