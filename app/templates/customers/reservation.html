@@ -77,8 +77,8 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
 
                                 <div class="form-group justify-content-center col-md-6 mb-4">
                                     <!-- <label class="mr-4">Palvelut</label>-->
-                                    {{ form.service_titles.label }}
-                                    {{ form.service_titles(id="title", class="form-control mr-5") }}
+                                    {{ form.service.label }}
+                                    {{ form.service (id="service", class="form-control mr-5") }}
                                     
                                     <!--php starts-->
                                     <!-- <?php
@@ -179,7 +179,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
                                     </tr>-->
                                 </thead>
 
-                                <tbody id="workouts_available">
+                                <tbody id="services_available">
                                 <tbody>
                             </table>           
                         </div>
@@ -189,8 +189,11 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
         </div>
     </div>
     <!--Row ends-->
+<script type="text/javascript" src="{{ url_for('static', filename='/js/services_available.js') }}"></script>    
+<script type="text/javascript" src="{{ url_for('static', filename='/js/make_reservation.js') }}"></script>
+
 {% endblock %}
 
-<script type="text/javascript" src="workouts_available.js"></script>
-<script type="text/javascript" src="make_reservation.js"></script>
+
 <script type="text/javascript" src="../forms/user_name.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='/js/hairdresser_select.js') }}"></script>

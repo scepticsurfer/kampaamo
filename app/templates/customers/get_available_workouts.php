@@ -44,9 +44,8 @@ if ($result->num_rows > 0) {
         $obj = new stdClass();
         $obj->date = $row['date'];
         $obj->time = $row["time"];
-        $obj->title = $row['title'];
-        $obj->trainer = $row["name"];
-        $obj->free_slots = $row["free_slots"];
+        $obj->service = $row['service'];
+        $obj->hairdresser = $row["username"];
         $obj->title_id = $row["title_id"];
         $obj->workout_id = $row["workout_id"];
         $obj->trainer_id = $row["trainer_id"];

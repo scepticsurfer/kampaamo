@@ -2,12 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 from wtforms.fields.html5 import DateTimeLocalField, DateField, TimeField
-
-
-
-class NameForm(FlaskForm):
-    name = StringField('What is your name?', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+from ..models import Service, User
 
 class FindClientServiceForm(FlaskForm):
     date_from = DateField('Alkaen')
@@ -17,58 +12,30 @@ class FindClientServiceForm(FlaskForm):
 class BookTimeServiceForm(FlaskForm):
     date_from = DateField('Alkaen')
     date_to = DateField('Saakka')    
-    service_titles = SelectField(
+    service= SelectField(
         'Palvelut',
         [DataRequired()],
-        choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop'),
-            ('Professional Rocket League Player', 'rocket'),
-            ('Lonely Guy At A Diner', 'lonely'),
-            ('Pokemon Trainer', 'pokemon')
-        ]
+        choices=[]
     )
     hairdresser = SelectField(
         'Osaajat',
         [DataRequired()],
-        choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop'),
-            ('Professional Rocket League Player', 'rocket'),
-            ('Lonely Guy At A Diner', 'lonely'),
-            ('Pokemon Trainer', 'pokemon')
-        ]
+        choices=[]
     )    
     submit = SubmitField('Selaa aikatauluja') 
 
 class FindAdminServiceForm(FlaskForm):
     date_from = DateField('Alkaen')
     date_to = DateField('Saakka')
-    service_titles = SelectField(
+    service = SelectField(
         'Palvelut',
         [DataRequired()],
-        choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop'),
-            ('Professional Rocket League Player', 'rocket'),
-            ('Lonely Guy At A Diner', 'lonely'),
-            ('Pokemon Trainer', 'pokemon')
-        ]
+        choices=[]
     )
     hairdresser = SelectField(
         'Osaajat',
         [DataRequired()],
-        choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop'),
-            ('Professional Rocket League Player', 'rocket'),
-            ('Lonely Guy At A Diner', 'lonely'),
-            ('Pokemon Trainer', 'pokemon')
-        ]
+        choices=[]
     )    
     submit = SubmitField('Selaa palvelujen aikatauluja') 
 
@@ -76,37 +43,23 @@ class AddAdminServiceForm(FlaskForm):
     service_id = StringField('ID')    
     date = DateField('Päivämäärä')
     time = TimeField('Ajankohta')
-    service_titles = SelectField(
+    service = SelectField(
         'Palvelu',
         [DataRequired()],
-        choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop'),
-            ('Professional Rocket League Player', 'rocket'),
-            ('Lonely Guy At A Diner', 'lonely'),
-            ('Pokemon Trainer', 'pokemon')
-        ]
+        choices=[]
     )
     hairdresser = SelectField(
         'Osaaja',
         [DataRequired()],
-        choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop'),
-            ('Professional Rocket League Player', 'rocket'),
-            ('Lonely Guy At A Diner', 'lonely'),
-            ('Pokemon Trainer', 'pokemon')
-        ]
+        choices=[]
     )
     status = SelectField(
         'Tila',
         [DataRequired()],
         choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop')           
+            ('1', 'Future'),
+            ('2', 'Done'),
+            ('3', 'Canceled')           
         ]
     ) 
     submit = SubmitField('Muokaa/Lisää')    

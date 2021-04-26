@@ -105,7 +105,7 @@ class Service(db.Model):
     __tablename__ = 'services'
     id = db.Column(db.Integer, primary_key=True)
     service_name = db.Column(db.String(64), unique=True, index=True)
-    prise = db.Column(db.DECIMAL(5, 2))
+    price = db.Column(db.DECIMAL(5, 2))
     description = db.Column(db.String(256))
 
     def __repr__(self):

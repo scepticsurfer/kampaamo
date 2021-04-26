@@ -1,7 +1,7 @@
 from flask import render_template
 from . import main
 from flask import jsonify
-from ..models import User#, Service,
+from ..models import User, Service
 from sqlalchemy import text
 from flask_sqlalchemy import SQLAlchemy
 from .forms import FindClientServiceForm, BookTimeServiceForm, FindAdminServiceForm, AddAdminServiceForm
@@ -83,16 +83,82 @@ def cancelReservation():
                'auth/email/client_cancel', date=date, time=time, master=request.args.get('master'), username=current_user.username)
                   
     return (jsonify(result_1))
-   
 
-    
-    
-    
-    
 @main.route("/customers/reservation/")
 def reservation():
     form = BookTimeServiceForm ()
+    choices_s = [("", "---")]
+    choices_u = [("", "---")]
+    for s in Service.query.all():
+        choices_s.append((str(s.id), s.service_name))
+    form.service.choices = choices_s
+    for u in User.query.filter_by(hairdresser='1').all():
+        choices_u.append((str(u.id), u.username))
+    form.hairdresser.choices = choices_u
+
+    #form.service.choices=[(service.id, service.service_name)for service in Service.query(Service.id, Service.service_name).all()]
     return render_template("customers/reservation.html", form=form) 
+
+# dynamic select field - hairdresser in form. When you choose service, 
+# in the list of hairdressers are only haidressers, who can provide this service.
+
+#@main.route('/customers/reservation/hairdresser/<service>')
+#def hairdresser(service):
+#    db = SQLAlchemy()
+#    sql_hairdressers = text("SELECT users.id, sername FROM hairdresser_service \
+#                         LEFT JOIN users ON hairdresser_service.hairdresser_id = users.id \
+#                        WHERE service_id='"+ str(service)+"' AND users.hairdresser = '1' " )
+#    result_hairdressers = db.engine.execute(sql_hairdressers)       
+#    response = []
+
+#    for row in result:
+#        response.append({
+#            "id": str(row.id),
+#            "username": str(row.username),
+#         })
+#    return (jsonify(response))
+
+# clients can search all aviables services and for serching can choose period, hairdresser or service, like filter    
+
+@main.route("/customers/reservation/servicesAvailable.json") 
+def servicesAvailable(): 
+    date_from=request.args.get('date_from')
+    date_to=request.args.get('date_to')
+    service_id=request.args.get('service_id')
+    hairdresser_id=request.args.get('hairdresser_id')
+    query_part=""
+    db = SQLAlchemy()
+    if(hairdresser_id!="" and service_id!=""):
+        query_part=" AND ((hairdresser_id='"+ str(hairdresser_id) + "') AND (service_id='"+ str(service_id) +"')) "
+    elif (service_id!="" ):
+           query_part=" AND (service_id='"+ str(service_id) +"') "
+    else: 
+        if (hairdresser_id!=""):
+            query_part=" AND (hairdresser_id='"+ str(hairdresser_id) + "')"
+     
+    sql = text("SELECT `date`,`time`,service_name,`username`, service_timetable.id, price\
+                FROM service_timetable\
+                LEFT JOIN services ON service_timetable.service_id=services.id\
+                LEFT JOIN users ON service_timetable.hairdresser_id=users.id\
+                WHERE (`date`>='" + str(date_from) +"' AND `date`<= '" + str(date_to) +"') AND\
+                 `status`='future'" + str(query_part))
+    result = db.engine.execute(sql)
+
+    response = []
+    for row in result:
+        response.append({
+            "timetable_id": str(row.id),
+            "date": str(row.date),
+            "time": str(row.time),
+            "service_name":str(row.service_name),
+            "username":str(row.username),
+            "price":str(row.price)
+        })
+
+    return (jsonify(response))
+    
+    
+# admin page
 
 @main.route("/admins/admin_page/")
 def admin_page():
