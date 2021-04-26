@@ -8,7 +8,7 @@ from .forms import FindClientServiceForm, BookTimeServiceForm, FindAdminServiceF
 from flask_login import current_user
 from flask import request
 from ..email import send_email
-
+from flask import current_app
 
 @main.route('/')
 def index():
@@ -78,7 +78,8 @@ def cancelReservation():
 
     sql_delete="DELETE FROM service_registration WHERE `id`='" + str(cancel_id) + "'"
     result_delete = db.engine.execute(sql_delete)
-    
+
+    app = current_app._get_current_object()
     send_email(app.config['HIUSMAGIA_ADMIN'], 'Client canceled reservation',
                'auth/email/client_cancel', date=date, time=time, master=request.args.get('master'), username=current_user.username)
                   
