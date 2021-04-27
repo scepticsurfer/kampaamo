@@ -290,13 +290,15 @@ def servicesRegistration():
     for row in result:
         client=User.query.filter_by(id=str(row.client_id)).first()
         client_username=client.username
+        phone_number=client.phone_number
         response.append({
             "reservation_id": str(row.id),
             "date": str(row.date),
             "time": str(row.time),
             "service_name":str(row.service_name),
             "hairdresser_name":str(row.username),
-            "client_name": str(client_username)
+            "client_name": str(client_username),
+            "phone_number": str(phone_number)
         })
 
     return (jsonify(response)) 

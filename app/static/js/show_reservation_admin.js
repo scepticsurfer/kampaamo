@@ -28,7 +28,8 @@ let reservationsAll = function(event) {
         <th scope="col">Ajankohta</th>
         <th scope="col">Liikuntalaji</th>
         <th scope="col">Ohjaaja</th>
-        <th scope="col">Asiakas</th>                                                                         
+        <th scope="col">Asiakas</th> 
+        <th scope="col">Asiakkaan puhelinnumero</th>                                                                        
     </tr>
         `
         head_table.innerHTML += content_head;
@@ -42,7 +43,7 @@ let reservationsAll = function(event) {
                        <td>${item.service_name}</td>
                        <td>${item.hairdresser_name}</td>
                        <td>${item.client_name}</td>
-                                       
+                       <td>${item.phone_number}</td>                
                        
                        </tr>
             `;
