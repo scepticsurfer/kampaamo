@@ -90,8 +90,8 @@ die;
 
                                 <div class="form-group justify-content-center col-md-6 mb-4">
                                     <!--<label class="mr-4">Liikuntalaji</label>-->
-                                    {{ form.service_titles.label }}
-                                    {{ form.service_titles(id="title", class="form-control mr-5") }}
+                                    {{ form.service.label }}
+                                    {{ form.service(id="service", class="form-control mr-5") }}
                                     <!--php starts-->
                                     <!-- <?php
                                     $titles = [];
@@ -152,7 +152,7 @@ die;
                                 </div>-->
 
                                 <div class="form-group justify-content-center col-md-12 mb-4">
-                                    {{ form.submit( class="btn btn-block mt-0 custom-green-buy", id="find_workouts" ) }}    
+                                    {{ form.submit( class="btn btn-block mt-0 custom-green-buy", id="find_services" ) }}    
                                     <button type="reset" name="submit" id="" class="btn btn-block mt-2 custom-outline-button">Nollaa kaikki kentät</button> 
                                 </div>                                
                             
@@ -192,7 +192,7 @@ die;
                                     </tr>  -->                                  
                                 </thead>
 
-                                <tbody id="workouts_all">
+                                <tbody id="services_all">
                                 </tbody>         
                             </table>           
                         </div>
@@ -202,6 +202,7 @@ die;
         </div>
     </div>
     <!--Row ends-->
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/services_available_admin.js') }}"></script>
 {% endblock %}
 
 <script type="text/javascript" src="admin_workouts_select.js"></script>

@@ -27,7 +27,7 @@ let workoutsAvailable = function(event) {
                         <th scope="col">Ajankohta</th>
                         <th scope="col">Liikuntalaji</th>
                         <th scope="col">Ohjaaja</th>
-                        <th scope="col">Hinta </th>
+                        <th scope="col">Hinta(€) </th>
                         <th scope="col">Ajan varaus</th>                        
                     </tr> `
         head_table.innerHTML += content_head;
@@ -40,7 +40,7 @@ let workoutsAvailable = function(event) {
                         <td>${item.time}</td>
                         <td>${item.service_name}</td>
                         <td>${item.username}</td>
-                        <td> ${item.price} €</td>
+                        <td> ${item.price}</td>
                         <td><a href="" class="btn custom-green-buy">Varaa
                             </a></td>                       
                        </tr>

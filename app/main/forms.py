@@ -14,12 +14,12 @@ class BookTimeServiceForm(FlaskForm):
     date_to = DateField('Saakka')    
     service= SelectField(
         'Palvelut',
-        [DataRequired()],
+        #[DataRequired()],
         choices=[]
     )
     hairdresser = SelectField(
         'Osaajat',
-        [DataRequired()],
+        #[DataRequired()],
         choices=[]
     )    
     submit = SubmitField('Selaa aikatauluja') 
@@ -29,12 +29,12 @@ class FindAdminServiceForm(FlaskForm):
     date_to = DateField('Saakka')
     service = SelectField(
         'Palvelut',
-        [DataRequired()],
+        #[DataRequired()],
         choices=[]
     )
     hairdresser = SelectField(
         'Osaajat',
-        [DataRequired()],
+        #[DataRequired()],
         choices=[]
     )    
     submit = SubmitField('Selaa palvelujen aikatauluja') 
