@@ -248,6 +248,59 @@ def servicesAvailableAdmin():
         })
 
     return (jsonify(response)) 
+
+@main.route("/admins/reservation_admin/")
+def reservation_admin():
+    form = BookTimeServiceForm ()
+    choices_s = [("", "---")]
+    choices_u = [("", "---")]
+    for s in Service.query.all():
+        choices_s.append((str(s.id), s.service_name))
+    form.service.choices = choices_s
+    for u in User.query.filter_by(hairdresser='1').all():
+        choices_u.append((str(u.id), u.username))
+    form.hairdresser.choices = choices_u
+    return render_template("admins/reservation_admin.html", form=form)
+
+@main.route("/admins/reservation_admin/servicesRegistration.json") 
+def servicesRegistration(): 
+    date_from=request.args.get('date_from')
+    date_to=request.args.get('date_to')
+    service_id=request.args.get('service_id')
+    hairdresser_id=request.args.get('hairdresser_id')
+    query_part=""
+    db = SQLAlchemy()
+    if(hairdresser_id!="" and service_id!=""):
+        query_part=" AND ((hairdresser_id='"+ str(hairdresser_id) + "') AND (service_id='"+ str(service_id) +"')) "
+    elif (service_id!="" ):
+           query_part=" AND (service_id='"+ str(service_id) +"') "
+    else: 
+        if (hairdresser_id!=""):
+            query_part=" AND (hairdresser_id='"+ str(hairdresser_id) + "')"
+     
+    sql = text("SELECT service_registration.id,`date`,`time`,service_name,`username`,client_id\
+                FROM service_registration\
+                LEFT JOIN services ON service_registration.service_id=services.id\
+                LEFT JOIN users ON service_registration.hairdresser_id=users.id\
+                WHERE (`date`>='" + str(date_from) +"' AND `date`<= '" + str(date_to) +"')"\
+                 + str(query_part))
+    result = db.engine.execute(sql)
+
+    response = []
+    for row in result:
+        client=User.query.filter_by(id=str(row.client_id)).first()
+        client_username=client.username
+        response.append({
+            "reservation_id": str(row.id),
+            "date": str(row.date),
+            "time": str(row.time),
+            "service_name":str(row.service_name),
+            "hairdresser_name":str(row.username),
+            "client_name": str(client_username)
+        })
+
+    return (jsonify(response)) 
+
 @main.route("/admins/new_change_workout/")
 def new_change_workout():
     form = AddAdminServiceForm ()
