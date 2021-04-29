@@ -3,6 +3,9 @@ from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 from wtforms.fields.html5 import DateTimeLocalField, DateField, TimeField
 from ..models import Service, User
+from datetime import datetime, date
+from wtforms import ValidationError
+from flask import flash
 
 class FindClientServiceForm(FlaskForm):
     date_from = DateField('Alkaen')
@@ -40,26 +43,37 @@ class FindAdminServiceForm(FlaskForm):
     submit = SubmitField('Selaa palvelujen aikatauluja') 
 
 class AddAdminServiceForm(FlaskForm):
-    service_id = StringField('ID')    
-    date = DateField('Päivämäärä')
-    time = TimeField('Ajankohta')
+    #timetable_id = StringField('ID')    
+    date = DateField('Päivämäärä',validators=[DataRequired()] )
+    time = TimeField('Ajankohta',validators=[DataRequired()], format='%H:%M')
     service = SelectField(
         'Palvelu',
-        [DataRequired()],
+        validators=[DataRequired()],
         choices=[]
     )
     hairdresser = SelectField(
         'Osaaja',
-        [DataRequired()],
+        validators=[DataRequired()],
         choices=[]
     )
-    status = SelectField(
-        'Tila',
-        [DataRequired()],
-        choices=[
-            ('1', 'Future'),
-            ('2', 'Done'),
-            ('3', 'Canceled')           
-        ]
-    ) 
+    #status = SelectField(
+    #    'Tila',
+    #    validators=[DataRequired()],
+    #    choices=[
+    #        ("", "---"),
+    #        ('Done', 'Done'),
+    #        ('Canceled', 'Canceled'),
+    #        ('Future', 'Future')           
+    #    ]
+   # ) 
     submit = SubmitField('Muokaa/Lisää')    
+   # def validate_date(self, field):
+   #    if str(field.data) <= str(date.today()):
+   #     raise ValidationError('Päivämäärä täyty olla myöhemmin kuin tänään.')
+   # def validate_time(self, field):
+   #     time_start = '08:00:00'
+   #     time_finish ='22:00:00'
+                             
+    # if str(field.data) < str(time_start) and str(field.data) > str(time_finish)  :
+    #        raise ValidationError('Aika täyty olla 8:00 ja 21:30 välillä.')    
+    

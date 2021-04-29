@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, flash
 from . import main
 from flask import jsonify
 from ..models import User, Service, ServiceTimetable, ServiceRegistration, HairdresserService
@@ -9,6 +9,7 @@ from flask_login import current_user
 from flask import request
 from ..email import send_email
 from flask import current_app
+from .. import db
 
 @main.route('/')
 def index():
@@ -282,10 +283,11 @@ def servicesRegistration():
                 FROM service_registration\
                 LEFT JOIN services ON service_registration.service_id=services.id\
                 LEFT JOIN users ON service_registration.hairdresser_id=users.id\
-                WHERE (`date`>='" + str(date_from) +"' AND `date`<= '" + str(date_to) +"')"\
+                WHERE ( `date`>='" + str(date_from) +"' AND `date`<= '" + str(date_to) +"')"\
                  + str(query_part))
+    print(sql)
     result = db.engine.execute(sql)
-
+   
     response = []
     for row in result:
         client=User.query.filter_by(id=str(row.client_id)).first()
@@ -303,10 +305,48 @@ def servicesRegistration():
 
     return (jsonify(response)) 
 
-@main.route("/admins/new_change_workout/")
-def new_change_workout():
+#@main.route("/admins/new_change_workout/<timetable_id>")
+#def new_change_workout():
+#    form = AddAdminServiceForm ()
+#    choices_s = [("", "---")]
+#    choices_u = [("", "---")]
+#    for s in Service.query.all():
+#        choices_s.append((str(s.id), s.service_name))
+#    form.service.choices = choices_s
+#    for u in User.query.filter_by(hairdresser='1').all():
+#        choices_u.append((str(u.id), u.username))
+#    form.hairdresser.choices = choices_u
+#    return render_template("admins/new_change_workout.html", form=form) 
+    
+@main.route("/admins/new_service/", methods=['GET', 'POST'])
+def new_service():
     form = AddAdminServiceForm ()
-    return render_template("admins/new_change_workout.html", form=form)  
+    choices_s = [("", "---")]
+    choices_u = [("", "---")]
+    for s in Service.query.all():
+        choices_s.append((str(s.id), s.service_name))
+    form.service.choices = choices_s
+    for u in User.query.filter_by(hairdresser='1').all():
+        choices_u.append((str(u.id), u.username))
+    form.hairdresser.choices = choices_u
+    if form.validate_on_submit():
+        
+        service_new = ServiceTimetable(
+                    date=form.date.data,
+                    time=form.time.data,
+                    service_id =form.service.data,
+                    hairdresser_id=form.hairdresser.data,
+                    status='Future')
+                    
+               
+        db.session.add(service_new)
+        db.session.commit()
+        flash('Palvelu lisätty')
+        
+    return render_template("admins/new_service.html", form=form) 
+
+    
+     
 
 @main.route("/test")
 def test():
