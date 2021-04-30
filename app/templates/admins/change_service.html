@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+{% block title %}
+HIUSMAGIA parturi kampaamo
+{% endblock %}
+
+
+{% block content %}
+<div class="custom-margin-for-form">
+    <!--Row starts-->
+    <div class="row">
+        <div class="col-lg-2">
+        </div>
+
+        <div class="col-lg-8">
+            <p></p>
+            <form class="custom-form" action="" method="post">
+
+                <h2>MUOKAA PALVELU </h2>
+
+                
+                <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label">ID</label>-->
+                    {{ form.timetable_id.label}} <!--service_id was before workout_id-->
+                    <div class="col">
+                       {{ form.timetable_id(id="timetable_id", class="form-control mr-5", readonly=true,value=timetable_id ) }} 
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label">Päivämäärä</label>-->
+                    {{ form.date.label }}                    
+                    <div class="col">
+                                              
+                        {{ form.date(id="date", class="form-control mr-5",value=date) }}                        
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label">Ajankohta</label>-->
+                    {{ form.time.label }} 
+                    <div class="col">
+                        
+                        {{ form.time(id="time", class="form-control mr-5",value=time) }} 
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label">Liikuntalaji</label>-->
+                    {{ form.service.label }}                     
+                    
+                    <div class="col">
+                        {{ form.service(id="service", class="form-control mr-5") }}
+                        
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label">Ohjaaja</label>-->
+                    {{ form.hairdresser.label }}
+                    <div class="col">
+                        {{ form.hairdresser(id="hairdresser", class="form-control mr-5") }}
+                        
+                    </div>
+                </div>
+
+               
+                <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label">Tila</label>-->
+                    {{ form.status.label }}
+                    <div class="col">
+                        {{ form.status(id="status", class="form-control mr-5") }}
+                        
+                    </div>
+                </div>
+
+                {{ form.submit( class="btn btn-lg btn-block custom-outline-button", id="submit" ) }}  
+
+                <p></p>
+                {{ form.csrf_token }}
+            </form>   
+                    
+        </div>
+
+        <div class="col-lg-2">
+        </div>
+    </div>
+    <!--Row ends-->
+</div>
+{% endblock %}
+
