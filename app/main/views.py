@@ -10,7 +10,7 @@ from flask import request
 from ..email import send_email
 from flask import current_app
 from .. import db
-# from flask_wtf import FlaskForm as Form
+
 
 @main.route('/')
 def index():
@@ -58,7 +58,7 @@ def getClientServices():
             "username":str(row.username)
         })
     return (jsonify(response))
-    # return jsonify([(dict(row.items())) for row in result])
+   
 
 
 @main.route("/customers/client_page/cancelReservation.json") 
@@ -306,19 +306,7 @@ def servicesRegistration():
 
     return (jsonify(response)) 
 
-#@main.route("/admins/new_change_workout/<timetable_id>")
-#def new_change_workout():
-#    form = AddAdminServiceForm ()
-#    choices_s = [("", "---")]
-#    choices_u = [("", "---")]
-#    for s in Service.query.all():
-#        choices_s.append((str(s.id), s.service_name))
-#    form.service.choices = choices_s
-#    for u in User.query.filter_by(hairdresser='1').all():
-#        choices_u.append((str(u.id), u.username))
-#    form.hairdresser.choices = choices_u
-#    return render_template("admins/new_change_workout.html", form=form) 
-    
+   
 @main.route("/admins/new_service/", methods=['GET', 'POST'])
 def new_service():
     form = AddAdminServiceForm ()
@@ -371,23 +359,12 @@ def change_service(timetable_id):
     form.service.default = service_id
     form.hairdresser.default = hairdresser_id
     form.status.default = status
-    # form.process()
-    # form.service.data = service_id
-    # form.hairdresser.data = hairdresser_id
-    # form.status.data = status
-
+    
     db = SQLAlchemy()
     
 
     if form.validate_on_submit():
-        #sql_update =text("UPDATE service_timetable  SET \
-        #                `date`='"+str(form.date.data)+"',\
-        #                 `time`='"+str(form.time.data)+"',\   
-        #                 service_id='"+str(form.service.data)+"',\
-        #                 hairdresser_id='"+str(form.hairdresser.data)+"',\
-        #                 status='"+str(form.status.data)+"'\
-        #                 WHERE id='"+str(form.timetable_id.data)+"'") 
-        
+               
         sql_update =text("UPDATE service_timetable  SET \
                          `date`='"+str(form.date.data)+"',\
                          `time`='"+ str(form.time.data) +"', \
