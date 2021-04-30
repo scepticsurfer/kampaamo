@@ -21,7 +21,7 @@ class RegistrationForm(FlaskForm):
                'Usernames must have only letters, numbers, dots or '
                'underscores')])
     phone_number=TelField('Puhelinnumero',validators=[Regexp(r"[0-9]{3}\-[0-9]{3}\-[0-9]{4}")], render_kw={"placeholder": "123-456-7890"})
-    password = PasswordField('Password', validators=[
+    password = PasswordField('Password', validators=[Regexp( r"^(?=.{8,32}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*", message='Salasanassa täytyy olla 8-32 merkkiä, yksi tai useampia isoja ja pieniä kirjaimia, yksi tai useampi numero.'),
         DataRequired(), EqualTo('password2', message='Passwords must match.')])
     password2 = PasswordField('Confirm password', validators=[DataRequired()])
     submit = SubmitField('Register')
