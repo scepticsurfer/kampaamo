@@ -3,47 +3,47 @@
 HIUSMAGIA parturi kampaamo
 {% endblock %}
 {% block content %}
-    <h2 class="custom-txt-center">MEIDÄN OHJAAJAT</h2>
+    <h1 class="custom-txt-center">MEIDÄN PALVELUT</h1>
     <p></p>
     <!--Row starts-->
     <div class="row row-cols-1 row-cols-md-4 g-4">    
         <div class="col custom-margin-bottom">
             <div class="card h-100 custom-card">
-                <img src="{{ url_for('static', filename='/pics/Liv-Tyler.jpg/') }}" class="card-img-top" alt="..."> 
+                <img src="{{ url_for('static', filename='/pics/leikkaukset.jpeg/') }}" class="card-img-top" alt="..."> 
                 <div class="card-body">
-                    <h5 class="card-title">Liv Tyler</h5>
+                    <h5 class="card-title">Leikkaukset</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
-                    <a href="../customers/reservation.html" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+                    <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
                 </div>
             </div>
         </div>
         <div class="col custom-margin-bottom">
             <div class="card h-100 custom-card">
-            <img src="{{ url_for('static', filename='/pics/Jensen-Ackles.jpg/') }}" class="card-img-top" alt="...">
+            <img src="{{ url_for('static', filename='/pics/varjaykset.jpg/') }}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Jensen Ackles</h5>
+                <h5 class="card-title">Värjäykset</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
-                <a href="../customers/reservation.html" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
             </div>
             </div>
         </div>
         <div class="col custom-margin-bottom">
             <div class="card h-100 custom-card">
-            <img src="{{ url_for('static', filename='/pics/Carmen-Electra.jpg/') }}" class="card-img-top" alt="...">
+            <img src="{{ url_for('static', filename='/pics/monimutkaiset.jpg/') }}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Carmen Electra</h5>
+                <h5 class="card-title">Monimutkaiset värjäykset</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
-                <a href="../customers/reservation.html" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
             </div>
             </div>
         </div>
         <div class="col custom-margin-bottom">
             <div class="card h-100 custom-card">
-            <img src="{{ url_for('static', filename='/pics/Jared-Padalecki.jpeg/') }}" class="card-img-top" alt="...">
+            <img src="{{ url_for('static', filename='/pics/kampaukset.jpeg/') }}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Jared Padalecki</h5>
+                <h5 class="card-title">Kampaukset</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
-                <a href="../customers/reservation.html" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
             </div>
             </div>
         </div>
@@ -54,41 +54,41 @@ HIUSMAGIA parturi kampaamo
     <div class="row row-cols-1 row-cols-md-4 g-4">
         <div class="col custom-margin-bottom">
             <div class="card h-100 custom-card">
-            <img src="{{ url_for('static', filename='/pics/Kit-Harington.jpg/') }}" class="card-img-top" alt="...">
+            <img src="{{ url_for('static', filename='/pics/kihartamiset.jpg/') }}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Kit Harington</h5>
+                <h5 class="card-title">Kihartamiset</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
-                <a href="../customers/reservation.html" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
             </div>
             </div>
         </div>
         <div class="col custom-margin-bottom">
             <div class="card h-100 custom-card">
-            <img src="{{ url_for('static', filename='/pics/Lucy-Liu.jpg/') }}" class="card-img-top" alt="...">
+            <img src="{{ url_for('static', filename='/pics/pikafiksaukset.jpg/') }}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Lucy Liu</h5>
+                <h5 class="card-title">Pikafiksaukset</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
-                <a href="../customers/reservation.html" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
             </div>
             </div>
         </div>
         <div class="col custom-margin-bottom">
             <div class="card h-100 custom-card">
-            <img src="{{ url_for('static', filename='/pics/Eva-Longoria.jpg/') }}" class="card-img-top" alt="..."> 
+            <img src="{{ url_for('static', filename='/pics/meikit.jpg/') }}" class="card-img-top" alt="..."> 
             <div class="card-body">
-                <h5 class="card-title">Eva Longoria</h5>
+                <h5 class="card-title">Meikit</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
-                <a href="../customers/reservation.html" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
             </div>
             </div>
         </div>
         <div class="col custom-margin-bottom">
             <div class="card h-100 custom-card">
-            <img src="{{ url_for('static', filename='/pics/Nikolaj-Coster-Waldau.jpg/') }}" class="card-img-top" alt="...">
+            <img src="{{ url_for('static', filename='/pics/manikyyri.jpg/') }}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Nikolaj Coster-Waldau</h5>
+                <h5 class="card-title">Manikyyri</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
-                <a href="../customers/reservation.html" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
             </div>
             </div>
         </div>

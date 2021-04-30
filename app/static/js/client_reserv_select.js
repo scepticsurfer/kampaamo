@@ -19,6 +19,7 @@ let rezervWorkouts = function(event) {
     }).then(function(data) {
         let head_table=document.getElementById('head_table')
         content_head=`<tr>
+        <th class="d-none">id </th>
         <th scope="col">Päivämäärä</th>
         <th scope="col">Ajankohta</th>
         <th scope="col">Liikuntalaji</th>
@@ -30,6 +31,7 @@ let rezervWorkouts = function(event) {
         data.forEach(item => {
             // attaching options to select
             content = `<tr>
+                          <td class="d-none">${item.id}</td>
                           <td>${item.date}</td>
                           <td>${item.time}</td>
                           <td>${item.service_name}</td>

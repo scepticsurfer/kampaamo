@@ -11,6 +11,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
 ?>-->
 
 {% block content %}
+{% if current_user.is_authenticated %}
     <h2 class="custom-txt-center custom-margin-bottom-4">TERVETULOA ASIAKKAAN SIVULLE</h2>  
 
     <!--Row starts-->
@@ -77,15 +78,14 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
 
                                 <div class="form-group justify-content-center col-md-6 mb-4">
                                     <!-- <label class="mr-4">Palvelut</label>-->
-                                    {{ form.service_titles.label }}
-                                    {{ form.service_titles(id="title", class="form-control mr-5") }}
+                                    {{ form.service.label }}
+                                    {{ form.service (id="service", class="form-control mr-5") }}
                                     
                                     <!--php starts-->
                                     <!-- <?php
                                     $titles = [];
                                     $query = "SELECT title,id FROM workout_titles ORDER BY title";
                                     $result = $connect->query($query);
-
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
                                             $titles[$row['id']] = $row["title"];
@@ -116,7 +116,6 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
                                     $titles = [];
                                     $query = "SELECT `name`,id FROM users WHERE trainer='1' ORDER BY `name`";
                                     $result = $connect->query($query);
-
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
                                             $trainers[$row['id']] = $row["name"];
@@ -181,7 +180,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
                                     </tr>-->
                                 </thead>
 
-                                <tbody id="workouts_available">
+                                <tbody id="services_available">
                                 <tbody>
                             </table>           
                         </div>
@@ -191,8 +190,25 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
         </div>
     </div>
     <!--Row ends-->
+<script type="text/javascript" src="{{ url_for('static', filename='/js/services_available.js') }}"></script>    
+<script type="text/javascript" src="{{ url_for('static', filename='/js/make_reservation.js') }}"></script>
+{% else %}
+
+<div class="row">
+    <div class="col-lg-2">        
+    </div>
+
+    <div class="col-lg-8">
+        <p style="text-align: center;">REDIRECT TO LOGIN PAGE SHOULD BE HERE!!!</p>
+        <a href="{{ url_for('auth.login') }}" class="btn btn-block btn-sm custom-outline-button">KIRJAUDU SISÄÄN</a>                   
+    </div>
+
+    <div class="col-lg-2">        
+    </div>
+</div> 
+{% endif %}
 {% endblock %}
 
-<script type="text/javascript" src="workouts_available.js"></script>
-<script type="text/javascript" src="make_reservation.js"></script>
+
 <script type="text/javascript" src="../forms/user_name.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='/js/hairdresser_select.js') }}"></script>

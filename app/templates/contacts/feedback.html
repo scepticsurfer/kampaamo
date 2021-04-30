@@ -1,63 +1,71 @@
 {% extends "layout.html" %}
-{% block title %}
-HIUSMAGIA parturi kampaamo
-{% endblock %}
+{% import "bootstrap/wtf.html" as wtf %}
 
-<?php
-include("feedback_handler.php");
-?>
+{% block title %}HIUSMAGIA - Ota yhteyttä{% endblock %}
 
 {% block content %}
-<div class="custom-margin-for-form">
     <!--Row starts-->
-    <div class="row">
+    <div class="row custom-margin-for-form">
         <div class="col-lg-2">        
         </div>
+                
+        <div class="col-lg-8">             
+                        
+            <form class="custom-form" action="{{ url_for('main.feedback') }}" method="post">
+                <h2 style="text-align:center;">OTA MEIHIN YHTEYTTÄ</h2>                    
+                {% if success %}
+                    <p style="text-align:center; font-size:200%;">Kiitos yhteydenotosta! <br>Otamme sinuun yhteyttä mahdollisimman pian.</p> 
+                    <p><a href="{{ url_for('main.index') }}" class="btn btn-block mt-0 custom-green-buy">ETUSIVULLE</a></p>                   
+                     
+                {% else %}
 
-        <div class="col-lg-8">
-            <form class="custom-form" action="" method="post">
-                <h2>OTA MEIHIN YHTEYTTÄ</h2>
-                <?php echo $_emailErr; ?>
-                <?php echo $_feefbackErr; ?>
-                <?php echo $_feedbackSucsess; ?>
+                    {% for message in form.username.errors %}
+                        <div class="flash">{{ message }}</div>
+                    {% endfor %}
 
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Nimi</label>
-                    <div class="col">
-                        <input type="text" class="form-control" name="name" id="name" />
-                    </div>
-                </div>
+                    {% for message in form.email.errors %}
+                        <div class="flash">{{ message }}</div>
+                    {% endfor %}
 
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Sähköposti</label>
-                    <div class="col">
-                        <input type="email" class="form-control" name="email" id="email" />
-                    </div>
-                </div>
+                    {% for message in form.subject.errors %}
+                        <div class="flash">{{ message }}</div>
+                    {% endfor %}
 
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Aihe</label>
-                    <div class="col">
-                        <input type="text" class="form-control" name="theme" id="theme" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Viesti</label>
-                    <div class="col">
-                        <textarea class="form-control" rows="5" name="feedback" id="feedback"></textarea>
+                    {% for message in form.message.errors %}
+                        <div class="flash">{{ message }}</div>
+                    {% endfor %}
+                    
+                    <div class="form-group">                    
+                        {{ form.username.label }}                    
+                        {{ form.username(class="form-control") }}
                     </div>
 
-                </div>
+                    <div class="form-group">                    
+                        {{ form.email.label }}                    
+                        {{ form.email(class="form-control") }}
+                    </div>                
 
-                <button type="submit" name="submit" id="submit" class="btn btn-lg btn-block custom-outline-button">Ota yhteyttä
-                </button>
-                <p></p>
-            </form>           
-            </div>
+                    <div class="form-group">                    
+                        {{ form.subject.label }}                    
+                        {{ form.subject(class="form-control") }}
+                    </div>
 
+                    <div class="form-group">                   
+                        {{ form.message.label }}                    
+                        {{ form.message(class="form-control") }}                    
+                    </div>
+
+                    <p></p>               
+                        {{ form.submit( class="btn btn-lg btn-block custom-outline-button" ) }}
+                    <p></p>
+                        {{ form.csrf_token }} 
+                    
+                {% endif %}               
+            </form>            
+        </div>   
+        
         <div class="col-lg-2">        
         </div>
     </div>
-    <!--Row ends--> 
-</div> 
+    <!--Row ends-->
 {% endblock %}

@@ -1,12 +1,11 @@
 {% extends "layout.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}HIUSMAGIA - Login{% endblock %}
+{% block title %}HIUSMAGIA - Kirjaudu{% endblock %}
 
 {% block content %}
-<div class="custom-margin-for-form">
     <!--Row starts-->
-    <div class="row">
+    <div class="row custom-margin-for-form">
         <div class="col-lg-2">        
         </div>
         <!--
@@ -62,12 +61,14 @@
                 {{ form.submit( class="btn btn-lg btn-block custom-outline-button" ) }}
                 <p></p>
                 {{ form.csrf_token }}
+                <br>
+                <p>Unohditko salasana? <a href="{{ url_for('auth.password_reset_request') }}">Nollaa salasana</a>.</p>
+                <p>Uusi käyttäjä? <a href="{{ url_for('auth.register') }}">Luo tili</a>.</p>
             </form>
         </div>   
-    
+        
         <div class="col-lg-2">        
         </div>
     </div>
     <!--Row ends--> 
-</div> 
 {% endblock %}

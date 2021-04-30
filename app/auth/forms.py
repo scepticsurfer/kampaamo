@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, Regexp, EqualTo
 from wtforms import ValidationError
 from ..models import User
-
+from wtforms.fields.html5 import TelField
 
 class LoginForm(FlaskForm):    
     email = StringField('Sähköposti', validators=[DataRequired(), Length(1, 64),
@@ -15,53 +15,54 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     email = StringField('Sähköposti', validators=[DataRequired(), Length(1, 64),
                                              Email()])
-    username = StringField('Username', validators=[
+    username = StringField('Etunimi Sukunimi', validators=[
         DataRequired(), Length(1, 64),
         Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
-               'Usernames must have only letters, numbers, dots or '
-               'underscores')])
-    password = PasswordField('Password', validators=[
-        DataRequired(), EqualTo('password2', message='Passwords must match.')])
-    password2 = PasswordField('Confirm password', validators=[DataRequired()])
-    submit = SubmitField('Register')
+               'Käyttäjänimissä pitää olla vain kirjaimet, numerot, pisteet tai '
+               'alaviivat')]) 
+    phone_number=TelField('Puhelinnumero',validators=[Regexp(r"[0-9]{3}\-[0-9]{3}\-[0-9]{4}")], render_kw={"placeholder": "123-456-7890"})
+    password = PasswordField('Salasana', validators=[
+        DataRequired(), EqualTo('password2', message='Salasanojen täytyy täsmätä.')])
+    password2 = PasswordField('Vahvista salasana', validators=[DataRequired()])
+    submit = SubmitField('Luo tili')
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data.lower()).first():
-            raise ValidationError('Email already registered.')
+            raise ValidationError('Sähköposti on jo olemassa.')
 
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():
-            raise ValidationError('Username already in use.')
+            raise ValidationError('Käyttäjänimi on jo olemassa.')
 
 
 class ChangePasswordForm(FlaskForm):
-    old_password = PasswordField('Old password', validators=[DataRequired()])
-    password = PasswordField('New password', validators=[
-        DataRequired(), EqualTo('password2', message='Passwords must match.')])
-    password2 = PasswordField('Confirm new password',
+    old_password = PasswordField('Vanha salasana', validators=[DataRequired()])
+    password = PasswordField('Uusi salasana', validators=[
+        DataRequired(), EqualTo('password2', message='Salasanojen täytyy täsmätä.')])
+    password2 = PasswordField('Vahvista uusi salasana',
                               validators=[DataRequired()])
-    submit = SubmitField('Update Password')
+    submit = SubmitField('Vaihda salasana')
 
 
 class PasswordResetRequestForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Length(1, 64),
+    email = StringField('Sähköposti', validators=[DataRequired(), Length(1, 64),
                                              Email()])
-    submit = SubmitField('Reset Password')
+    submit = SubmitField('Nollaa salasana')
 
 
 class PasswordResetForm(FlaskForm):
-    password = PasswordField('New Password', validators=[
-        DataRequired(), EqualTo('password2', message='Passwords must match')])
-    password2 = PasswordField('Confirm password', validators=[DataRequired()])
-    submit = SubmitField('Reset Password')
+    password = PasswordField('Uusi salasana', validators=[
+        DataRequired(), EqualTo('password2', message='Salasanojen täytyy täsmätä')])
+    password2 = PasswordField('Vahvista salasana', validators=[DataRequired()])
+    submit = SubmitField('Päivitä salasana')
 
 
 class ChangeEmailForm(FlaskForm):
-    email = StringField('New Email', validators=[DataRequired(), Length(1, 64),
+    email = StringField('Uusi sähköposti', validators=[DataRequired(), Length(1, 64),
                                                  Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Update Email Address')
+    password = PasswordField('Salasana', validators=[DataRequired()])
+    submit = SubmitField('Vaihda sähköposti')
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data.lower()).first():
-            raise ValidationError('Email already registered.')
+            raise ValidationError('Sähköposti on jo olemassa.')

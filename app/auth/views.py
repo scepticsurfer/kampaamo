@@ -40,7 +40,7 @@ def login():
                 login_user(user, form.remember_me.data)    
             next = request.args.get('next')
             if next is None or not next.startswith('/'):
-                next = url_for('main.index')
+                next = url_for('main.client_page')
             return redirect(next)
         flash('Invalid email or password.')
     return render_template('auth/login.html', form=form)
@@ -60,7 +60,8 @@ def register():
     if form.validate_on_submit():
         user = User(email=form.email.data.lower(),
                     username=form.username.data,
-                    password=form.password.data)
+                    password=form.password.data,
+                    phone_number=form.phone_number.data)
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirmation_token()
@@ -140,7 +141,7 @@ def password_reset(token):
             return redirect(url_for('auth.login'))
         else:
             return redirect(url_for('main.index'))
-    return render_template('auth/reset_password.html', form=form)
+    return render_template('auth/password_reset.html', form=form)
 
 
 @auth.route('/change_email', methods=['GET', 'POST'])

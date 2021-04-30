@@ -1,0 +1,123 @@
+{% extends "layout.html" %}
+{% block title %}
+HIUSMAGIA parturi kampaamo
+{% endblock %}
+
+{% block content %}
+<div class="custom-margin-for-form">
+    <!--Row starts-->
+    <div class="row">
+        <div class="col-lg-2">
+        </div>
+
+        <div class="col-lg-8">
+            <p></p>
+            
+            <form class="custom-form" action="" method="post">
+
+                <h2>MUOKAA / LISÄÄ PALVELU</h2>
+
+                    <div class="form-group row">
+                        <!--<label class="col-sm-3 col-form-label">ID</label>-->
+                        {{ form.timetable_id.label }} <!--service_id was before workout_id-->
+                        <div class="col">
+                            <!--<input id="workout_id" type="number" class="form-control" name="workout_id" id="workout_id" value="<?php echo $workout_id ?>" readonly />-->
+                            {{ form.timetable_id(id="service_id", class="form-control mr-5", readonly=true) }} 
+                        </div>
+                    </div>
+                
+                <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label">Päivämäärä</label>-->
+                    {{ form.date.label }}                    
+                    <div class="col">                                                         
+                        {{ form.date(id="date", class="form-control mr-5") }}                        
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label">Ajankohta</label>-->
+                    {{ form.time.label }} 
+                    <div class="col">
+                        <!--<input type="time" class="form-control" name="time" id="time" value="<?php echo (isset($workout_id)) ? $time : "" ?>" />
+                        <?php echo isset($error['time_error']) ? $error['time_error'] : ''; ?>-->
+                        {{ form.time(id="time", class="form-control mr-5") }} 
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label">Liikuntalaji</label>-->
+                    {{ form.service.label }}                     
+                    <!--<?php
+                    $titles = [];
+                    $query = "SELECT title,id FROM workout_titles ORDER BY title";
+                    $result = $connect->query($query);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $titles[$row['id']] = $row["title"];
+                        }
+                    }
+                    ?>-->
+                    <div class="col">
+                        {{ form.service(id="service", class="form-control mr-5") }}
+                        <!--<select id="title" class=form-control name="title">
+                            <?php
+                            foreach ($titles as $id => $title) {
+                                $select = (isset($workout_id) && ($title == $workout_title)) ? "selected" : "";
+                                echo "<option value=\"$id\" $select>$title</option>";
+                            }
+                            ?>
+                        </select>-->
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label">Ohjaaja</label>-->
+                    {{ form.hairdresser.label }}
+                    <div class="col">
+                        {{ form.hairdresser(id="hairdresser", class="form-control mr-5") }}
+                        <!--<select id="trainer" class=form-control name="trainer" value="<?php echo (isset($workout_id)) ? $trainer : "" ?>">
+                        </select>-->
+                    </div>
+                </div>
+
+                <!--<div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Vapaat paikat</label>
+                    <div id= "free_max_slots" class="col">                        
+                    </div>
+                </div>-->
+
+                <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label">Tila</label>-->
+                    {{ form.status.label }}
+                    <div class="col">
+                        {{ form.status(id="status", class="form-control mr-5") }}
+                        <!--<?php $select = isset($workout_id) ? $status : "" ?>
+                        <select id="status" class=form-control name="status" value="<?php echo (isset($_GET['workout_id'])) ? $status : "" ?>">
+                            <option value="Future" <?php echo (($select == "future") ? "selected" : "") ?>>Tuleva</option>
+                            <option value="Done" <?php echo (($select == "done") ? "selected" : "") ?>>Päättynyt</option>
+                            <option value="Canceled" <?php echo (($select == "canceled") ? "selected" : "") ?>>Peruutettu</option>
+                        </select>-->
+                    </div>
+                </div>
+
+                <!--<button type="submit" name="submit" id="submit" class="btn btn-lg btn-block custom-outline-button">
+                    <?php echo (isset($workout_id)) ? "Muokaa" : "Lisää" ?>
+                </button>-->
+
+                {{ form.submit( class="btn btn-lg btn-block custom-outline-button", id="submit" ) }}  
+
+                <p></p>
+
+            </form>            
+        </div>
+
+        <div class="col-lg-2">
+        </div>
+    </div>
+    <!--Row ends-->
+</div>
+{% endblock %}
+
+<script type="text/javascript" src="trainer_select.js"></script>
+<script type="text/javascript" src="free_slots_select.js"></script>

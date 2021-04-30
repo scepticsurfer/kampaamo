@@ -1,13 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField
+from wtforms import StringField, SubmitField, SelectField, TextAreaField
 from wtforms.validators import DataRequired
 from wtforms.fields.html5 import DateTimeLocalField, DateField, TimeField
-
-
-
-class NameForm(FlaskForm):
-    name = StringField('What is your name?', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+from ..models import Service, User
+from datetime import datetime, date
+from wtforms import validators, ValidationError
+from flask import flash
 
 class FindClientServiceForm(FlaskForm):
     date_from = DateField('Alkaen')
@@ -17,96 +15,72 @@ class FindClientServiceForm(FlaskForm):
 class BookTimeServiceForm(FlaskForm):
     date_from = DateField('Alkaen')
     date_to = DateField('Saakka')    
-    service_titles = SelectField(
+    service= SelectField(
         'Palvelut',
-        [DataRequired()],
-        choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop'),
-            ('Professional Rocket League Player', 'rocket'),
-            ('Lonely Guy At A Diner', 'lonely'),
-            ('Pokemon Trainer', 'pokemon')
-        ]
+        #[DataRequired()],
+        choices=[]
     )
     hairdresser = SelectField(
         'Osaajat',
-        [DataRequired()],
-        choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop'),
-            ('Professional Rocket League Player', 'rocket'),
-            ('Lonely Guy At A Diner', 'lonely'),
-            ('Pokemon Trainer', 'pokemon')
-        ]
+        #[DataRequired()],
+        choices=[]
     )    
     submit = SubmitField('Selaa aikatauluja') 
 
 class FindAdminServiceForm(FlaskForm):
     date_from = DateField('Alkaen')
     date_to = DateField('Saakka')
-    service_titles = SelectField(
+    service = SelectField(
         'Palvelut',
-        [DataRequired()],
-        choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop'),
-            ('Professional Rocket League Player', 'rocket'),
-            ('Lonely Guy At A Diner', 'lonely'),
-            ('Pokemon Trainer', 'pokemon')
-        ]
+        #[DataRequired()],
+        choices=[]
     )
     hairdresser = SelectField(
         'Osaajat',
-        [DataRequired()],
-        choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop'),
-            ('Professional Rocket League Player', 'rocket'),
-            ('Lonely Guy At A Diner', 'lonely'),
-            ('Pokemon Trainer', 'pokemon')
-        ]
+        #[DataRequired()],
+        choices=[]
     )    
     submit = SubmitField('Selaa palvelujen aikatauluja') 
 
 class AddAdminServiceForm(FlaskForm):
-    service_id = StringField('ID')    
-    date = DateField('Päivämäärä')
-    time = TimeField('Ajankohta')
-    service_titles = SelectField(
+    #timetable_id = StringField('ID')    
+    date = DateField('Päivämäärä',validators=[DataRequired()] )
+    time = TimeField('Ajankohta',validators=[DataRequired()], format='%H:%M')
+    service = SelectField(
         'Palvelu',
-        [DataRequired()],
-        choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop'),
-            ('Professional Rocket League Player', 'rocket'),
-            ('Lonely Guy At A Diner', 'lonely'),
-            ('Pokemon Trainer', 'pokemon')
-        ]
+        validators=[DataRequired()],
+        choices=[]
     )
     hairdresser = SelectField(
         'Osaaja',
-        [DataRequired()],
-        choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop'),
-            ('Professional Rocket League Player', 'rocket'),
-            ('Lonely Guy At A Diner', 'lonely'),
-            ('Pokemon Trainer', 'pokemon')
-        ]
+        validators=[DataRequired()],
+        choices=[]
     )
-    status = SelectField(
-        'Tila',
-        [DataRequired()],
-        choices=[
-            ('Farmer', 'farmer'),
-            ('Corrupt Politician', 'politician'),
-            ('No-nonsense City Cop', 'cop')           
-        ]
-    ) 
-    submit = SubmitField('Muokaa/Lisää')       
+    #status = SelectField(
+    #    'Tila',
+    #    validators=[DataRequired()],
+    #    choices=[
+    #        ("", "---"),
+    #        ('Done', 'Done'),
+    #        ('Canceled', 'Canceled'),
+    #        ('Future', 'Future')           
+    #    ]
+   # ) 
+    submit = SubmitField('Lisää')    
+   # def validate_date(self, field):
+   #    if str(field.data) <= str(date.today()):
+   #     raise ValidationError('Päivämäärä täyty olla myöhemmin kuin tänään.')
+   # def validate_time(self, field):
+   #     time_start = '08:00:00'
+   #     time_finish ='22:00:00'
+                             
+    # if str(field.data) < str(time_start) and str(field.data) > str(time_finish)  :
+    #        raise ValidationError('Aika täyty olla 8:00 ja 21:30 välillä.')  
+
+class FeedbackForm(FlaskForm):
+    username = StringField('Nimi', [validators.Required("Kirjoita nimesi.")]) 
+    email = StringField('Sähköposti', [validators.Required("Kirjoita sähköpostisi."), validators.Email("Kirjoita sähköpostisi.")])
+    subject = StringField('Aihe', [validators.Required("Kirjoita aihe.")])
+    message = TextAreaField('Viesti', [validators.Required("Kirjoita viestisi.")])
+    submit = SubmitField('Ota yhteyttä')  
+    

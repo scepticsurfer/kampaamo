@@ -21,6 +21,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
     # role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    phone_number=db.Column(db.String(15))
     password_hash = db.Column(db.String(128))
     admin = db.Column(db.Boolean, default=False)
     hairdresser = db.Column(db.Boolean, default=False)
@@ -105,7 +106,7 @@ class Service(db.Model):
     __tablename__ = 'services'
     id = db.Column(db.Integer, primary_key=True)
     service_name = db.Column(db.String(64), unique=True, index=True)
-    prise = db.Column(db.DECIMAL(5, 2))
+    price = db.Column(db.DECIMAL(5, 2))
     description = db.Column(db.String(256))
 
     def __repr__(self):
