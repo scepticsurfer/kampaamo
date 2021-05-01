@@ -77,6 +77,41 @@ class AddAdminServiceForm(FlaskForm):
     # if str(field.data) < str(time_start) and str(field.data) > str(time_finish)  :
     #        raise ValidationError('Aika täyty olla 8:00 ja 21:30 välillä.')  
 
+class ChangeAdminServiceForm(FlaskForm):
+    timetable_id = StringField('ID')    
+    date = DateField('Päivämäärä',validators=[DataRequired()] )
+    time = TimeField('Ajankohta',format='%H:%M',validators=[DataRequired()])
+    service = SelectField(
+        'Palvelu',
+        validators=[DataRequired()],
+        choices=[]
+    )
+    hairdresser = SelectField(
+        'Osaaja',
+        validators=[DataRequired()],
+        choices=[]
+    )
+    status = SelectField(
+        'Tila',
+        validators=[DataRequired()],
+        choices=[
+            ("", "---"),
+            ('Done', 'Done'),
+            ('Canceled', 'Canceled'),
+            ('Future', 'Future')           
+        ]
+    ) 
+    submit = SubmitField('Muokaa')    
+   # def validate_date(self, field):
+   #    if str(field.data) <= str(date.today()):
+   #     raise ValidationError('Päivämäärä täyty olla myöhemmin kuin tänään.')
+   # def validate_time(self, field):
+   #     time_start = '08:00:00'
+   #     time_finish ='22:00:00'
+
+    # if str(field.data) < str(time_start) and str(field.data) > str(time_finish)  :
+    #        raise ValidationError('Aika täyty olla 8:00 ja 21:30 välillä.') 
+
 class FeedbackForm(FlaskForm):
     username = StringField('Nimi', [validators.Required("Kirjoita nimesi.")]) 
     email = StringField('Sähköposti', [validators.Required("Kirjoita sähköpostisi."), validators.Email("Kirjoita sähköpostisi.")])

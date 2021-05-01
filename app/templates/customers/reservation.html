@@ -3,15 +3,9 @@
 HIUSMAGIA parturi kampaamo
 {% endblock %}
 
-<!--<?php
-if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer']==1  ) {
-    header("location: ../forms/login.php");  
-    exit;
-    }
-?>-->
-
 {% block content %}
 {% if current_user.is_authenticated %}
+    {% if current_user.admin != 1 %}
     <h2 class="custom-txt-center custom-margin-bottom-4">TERVETULOA ASIAKKAAN SIVULLE</h2>  
 
     <!--Row starts-->
@@ -23,8 +17,8 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
             <div class="row">
                 <div class="col-md-4 order-md-2 mb-4">                
                     <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-success">
+                        <li class="list-group-item d-flex justify-content-between custom-bg-menu">
+                        <div class="custom-text-white">
                             <h6 class="my-0"><script>showToday();</script></h6>
                             <small>VIIKKO <?php echo date("W");?></small>
                         </div>                   
@@ -38,14 +32,14 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
 
                         <li class="list-group-item d-flex justify-content-between lh-condensed">                       
                         <div>
-                            <h6 class="my-0"><a href="{{ url_for('main.client_page') }}" class="text-danger">Minun aikatauluni</a></h6>
-                            <small class="text-muted">Tarkista aikataulusi valitsemasi ajanjaksolla</small>
+                            <h6 class="my-0"><a href="{{ url_for('main.client_page') }}" class="custom-ins-link">Minun aikatauluni</a></h6>
+                            <small class="text-muted">Tarkista aikataulusi ja peruuta aikoja</small>
                         </div>                                                         
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                            <h6 class="my-0"><a href="{{ url_for('main.reservation') }}" class="text-danger">Varaa aika</a></h6>
+                            <h6 class="my-0"><a href="{{ url_for('main.reservation') }}" class="custom-ins-link">Varaa aika</a></h6>
                             <small class="text-muted">Varaa ajka valitsemasi osaajalle</small>
                         </div>                    
                         </li>
@@ -79,61 +73,14 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
                                 <div class="form-group justify-content-center col-md-6 mb-4">
                                     <!-- <label class="mr-4">Palvelut</label>-->
                                     {{ form.service.label }}
-                                    {{ form.service (id="service", class="form-control mr-5") }}
-                                    
-                                    <!--php starts-->
-                                    <!-- <?php
-                                    $titles = [];
-                                    $query = "SELECT title,id FROM workout_titles ORDER BY title";
-                                    $result = $connect->query($query);
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            $titles[$row['id']] = $row["title"];
-                                        }
-                                    }
-                                    ?> -->
-                                    <!--php ends-->
-
-                                    <!--options start-->
-                                    <!-- <select id="title" class=form-control name="title" value="<?php echo (isset($_GET['title'])) ? $_GET['title'] : "" ?>">
-                                    <option value="">kaikki palvelut</option>-->
-                                    <!-- <?php
-                                    foreach ($titles as $id => $title) {
-                                    echo "<option value=\"$id\">$title</option>";
-                                    }
-                                    ?> -->
-                                    <!--</select>-->  
-                                    <!--options end-->                                                   
+                                    {{ form.service (id="service", class="form-control mr-5") }}                                                                                   
                                 </div>  
                             
                             
                                 <div class="form-group justify-content-center col-md-6 mb-4">
                                     <!-- <label class="mr-4">Osaajat</label> -->
                                     {{ form.hairdresser.label }}
-                                    {{ form.hairdresser(id="hairdresser", class="form-control mr-5") }}
-                                    <!--php starts-->
-                                    <!-- <?php
-                                    $titles = [];
-                                    $query = "SELECT `name`,id FROM users WHERE trainer='1' ORDER BY `name`";
-                                    $result = $connect->query($query);
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            $trainers[$row['id']] = $row["name"];
-                                        }
-                                    }
-                                    ?> -->
-                                    <!--php ends-->
-
-                                    <!--options start-->
-                                    <!-- <select id="trainer" class=form-control name="trainer" >
-                                    <option value="">kaikki osaajat</option> -->
-                                    <!-- <?php
-                                    foreach ($trainers as $id => $trainer) {
-                                        echo "<option value=\"$id\">$trainer</option>";
-                                    }
-                                    ?>
-                                    </select> -->
-                                    <!--options end-->
+                                    {{ form.hairdresser(id="hairdresser", class="form-control mr-5") }}                                    
                                 </div>
                             
                                 <!-- <div class="form-group justify-content-center col-md-12 mb-4">
@@ -192,20 +139,53 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['admin']==1 ||$_SESSION['trainer'
     <!--Row ends-->
 <script type="text/javascript" src="{{ url_for('static', filename='/js/services_available.js') }}"></script>    
 <script type="text/javascript" src="{{ url_for('static', filename='/js/make_reservation.js') }}"></script>
+    {% elif current_user.admin == 1 %}
+        <!--Row starts-->
+        <div class="row custom-margin-for-form">
+            <div class="col-lg-2">        
+            </div>
+
+            <div class="col-lg-8">        
+                <div class="custom-form">
+                <h2 style="text-align: center;">KIRJAUDU ASIAKKAAN SIVULLE</h2> 
+                <p style="text-align: center; font-size: 120%;">AJAN VARAUS ON TARKOITETTU VAIN REKISTERÖTYNEILLE ASIAKKAILLE.<br>
+                KIRJAUDU ULOS ADMINISTRAATTORIN TILILTA<br> 
+                JA KIRJAUDU SISÄÄN ASIAKKAANA.<br>                 
+                </p>       
+                <p><a href="{{ url_for('auth.logout') }}" class="btn btn-block mt-0 custom-green-buy">KIRJAUDU ULOS</a></p>
+                <p><a href="{{ url_for('main.admin_page') }}" class="btn btn-block mt-0 custom-green-buy">ADMINISTRAATTORIN SIVULLE</a></p>        
+                </div>                   
+            </div>
+
+            <div class="col-lg-2">        
+            </div>
+        </div>
+        <!--Row ends-->
+    {% endif %}
 {% else %}
 
-<div class="row">
-    <div class="col-lg-2">        
-    </div>
+    <!--Row starts-->
+    <div class="row custom-margin-for-form">
+        <div class="col-lg-2">        
+        </div>
 
-    <div class="col-lg-8">
-        <p style="text-align: center;">REDIRECT TO LOGIN PAGE SHOULD BE HERE!!!</p>
-        <a href="{{ url_for('auth.login') }}" class="btn btn-block btn-sm custom-outline-button">KIRJAUDU SISÄÄN</a>                   
-    </div>
+        <div class="col-lg-8">        
+            <div class="custom-form">
+            <h2 style="text-align: center;">KIRJAUDU ASIAKKAAN SIVULLE</h2> 
+            <p style="text-align: center; font-size: 120%;">AJAN VARAUS ON TARKOITETTU VAIN REKISTERÖTYNEILLE ASIAKKAILLE.<br>
+            KIRJAUDU SISÄÄN TAI LUO TILI.<br> 
+            SE ON ILMAISTA JA VIE VAIN PARI MINUUTTIA. 
+            </p>       
+            <p><a href="{{ url_for('auth.login') }}" class="btn btn-block mt-0 custom-green-buy">KIRJAUDU SISÄÄN</a></p>
+            <p><a href="{{ url_for('auth.register') }}" class="btn btn-block mt-0 custom-green-buy">LUO TILI</a></p>        
+            </div>                   
+        </div>
 
-    <div class="col-lg-2">        
+        <div class="col-lg-2">        
+        </div>
     </div>
-</div> 
+    <!--Row ends--> 
+    
 {% endif %}
 {% endblock %}
 

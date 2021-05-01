@@ -1,10 +1,10 @@
-from flask import render_template, flash
+from flask import render_template,redirect,url_for, flash
 from . import main
 from flask import jsonify
 from ..models import User, Service, ServiceTimetable, ServiceRegistration, HairdresserService
 from sqlalchemy import text
 from flask_sqlalchemy import SQLAlchemy
-from .forms import FindClientServiceForm, BookTimeServiceForm, FindAdminServiceForm, AddAdminServiceForm, FeedbackForm
+from .forms import FindClientServiceForm, BookTimeServiceForm, FindAdminServiceForm, AddAdminServiceForm, ChangeAdminServiceForm, FeedbackForm
 from flask_login import current_user
 from flask import request
 from ..email import send_email
@@ -12,6 +12,7 @@ from flask import current_app
 from .. import db
 from flask_mail import Message
 from .. import mail
+
 
 @main.route('/')
 def index():
@@ -24,6 +25,10 @@ def company():
 @main.route("/trainers/trainers/") 
 def trainers():
     return render_template("trainers/trainers.html")
+
+@main.route("/cart/tuoteluettelo/")
+def tuoteluettelo():
+    return render_template("cart/tuoteluettelo.html")
 
 @main.route("/contacts/feedback/", methods=['GET', 'POST'])
 def feedback():
@@ -77,7 +82,7 @@ def getClientServices():
             "username":str(row.username)
         })
     return (jsonify(response))
-    # return jsonify([(dict(row.items())) for row in result])
+   
 
 
 @main.route("/customers/client_page/cancelReservation.json") 
@@ -303,10 +308,11 @@ def servicesRegistration():
                 FROM service_registration\
                 LEFT JOIN services ON service_registration.service_id=services.id\
                 LEFT JOIN users ON service_registration.hairdresser_id=users.id\
-                WHERE (`date`>='" + str(date_from) +"' AND `date`<= '" + str(date_to) +"')"\
+                WHERE ( `date`>='" + str(date_from) +"' AND `date`<= '" + str(date_to) +"')"\
                  + str(query_part))
+    print(sql)
     result = db.engine.execute(sql)
-
+   
     response = []
     for row in result:
         client=User.query.filter_by(id=str(row.client_id)).first()
@@ -324,19 +330,7 @@ def servicesRegistration():
 
     return (jsonify(response)) 
 
-#@main.route("/admins/new_change_workout/<timetable_id>")
-#def new_change_workout():
-#    form = AddAdminServiceForm ()
-#    choices_s = [("", "---")]
-#    choices_u = [("", "---")]
-#    for s in Service.query.all():
-#        choices_s.append((str(s.id), s.service_name))
-#    form.service.choices = choices_s
-#    for u in User.query.filter_by(hairdresser='1').all():
-#        choices_u.append((str(u.id), u.username))
-#    form.hairdresser.choices = choices_u
-#    return render_template("admins/new_change_workout.html", form=form) 
-    
+   
 @main.route("/admins/new_service/", methods=['GET', 'POST'])
 def new_service():
     form = AddAdminServiceForm ()
@@ -364,6 +358,58 @@ def new_service():
         
     return render_template("admins/new_service.html", form=form) 
 
+@main.route("/admins/change_service/<timetable_id>", methods=['GET', 'POST'])
+def change_service(timetable_id):
+    form = ChangeAdminServiceForm ()
+    choices_s = [("", "---")]
+    choices_u = [("", "---")]
+    for s in Service.query.all():
+        choices_s.append((str(s.id), s.service_name))
+    form.service.choices = choices_s
+    for u in User.query.filter_by(hairdresser='1').all():
+        choices_u.append((str(u.id), u.username))
+    form.hairdresser.choices = choices_u
+
+    change_service=ServiceTimetable.query.filter_by(id=str(timetable_id)).first()
+    date=change_service.date
+    time=change_service.time
+    if len(str(time)) < 8:
+        time = '0' + str(time)
+    time = str(time)[:5]
+    service_id=change_service.service_id
+    hairdresser_id=change_service.hairdresser_id
+    status=change_service.status
+
+    form.service.default = service_id
+    form.hairdresser.default = hairdresser_id
+    form.status.default = status
+    
+    db = SQLAlchemy()
+    
+
+    if form.validate_on_submit():
+               
+        sql_update =text("UPDATE service_timetable  SET \
+                         `date`='"+str(form.date.data)+"',\
+                         `time`='"+ str(form.time.data) +"', \
+                         service_id='"+str(form.service.data)+"',\
+                         hairdresser_id='"+str(form.hairdresser.data)+"',\
+                         status='"+str(form.status.data)+"'\
+                         WHERE id='"+str(form.timetable_id.data)+"'")                  
+        
+        result_update = db.engine.execute(sql_update)
+              
+        flash('Palvelu muokattu')
+        return redirect(url_for('main.admin_page'))
+    else:
+        print(form.errors)
+        
+
+    form.process()
+
+
+    template_context = dict(form=form, timetable_id=timetable_id, date=date, time=time)   
+    return render_template("admins/change_service.html",**template_context ) 
     
      
 

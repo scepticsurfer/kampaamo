@@ -504,8 +504,6 @@ a.custom-button-link:hover{
     color:white;
 }
 
-
-
 .custom-cart-title-l{
     margin-bottom:10px; 
     text-transform:uppercase;    
@@ -648,6 +646,17 @@ a.custom-cart-full{
     border-radius: 3px;
     background: white; /*url(../static/pics/red-pattern.png);*/  
     box-shadow: 1px 1px 10px 0 rgba(168, 132, 132, 0.1);  
+}
+
+.custom-welcome{
+    background:white; 
+    /*background: url(../static/pics/red-pattern.png);*/    
+    padding:1%;
+    margin-bottom: 1.1rem;
+    text-align: center;      
+    /*border-left:14px solid #F64B4B;
+    border-right:14px solid #F64B4B;*/
+    box-shadow: 1px 1px 4px 1px rgba(0,0,0,.1);
 }
 
 /* Message flashing */

@@ -4,16 +4,15 @@
 {% block title %}HIUSMAGIA - Luo tili{% endblock %}
 
 {% block content %}
-<div class="custom-margin-for-form">
     <!--Row starts-->
-    <div class="row">
+    <div class="row custom-margin-for-form">
         <div class="col-lg-2">        
         </div>
                 
         <div class="col-lg-8">
             
             <form class="custom-form" action="" method="post">
-                <h2>LUO TILI</h2>               
+                <h2 style="text-align:center;">LUO TILI</h2>               
 
                 <div class="form-group">                    
                     {{ form.email.label }}                    
@@ -52,5 +51,5 @@
         </div>
     </div>
     <!--Row ends--> 
-</div> 
+
 {% endblock %}

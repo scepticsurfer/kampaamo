@@ -3,25 +3,10 @@
 HIUSMAGIA parturi kampaamo
 {% endblock %}
 
-<!--<?php
-$error = [
-    "date_error" => "", "time_error" => "", "workout_exist" => "",
-    "add_error" => "", "add_success" => "", "empty_error" => "", "change_error" => "", "change_success" => ""
-];
-if (!isset($_SESSION['admin']) || $_SESSION['admin']!=1) {
-    die;
-    }
-include("new_workout_handler.php");
-if(isset($_GET["workout_id"]) && $_GET["workout_id"]<>"" ){
-$workout_id = $connect->real_escape_string(strip_tags($_GET["workout_id"]));
-$workout_id = filter_var($workout_id, FILTER_SANITIZE_STRING);
-}
-?>-->
-
 {% block content %}
-<div class="custom-margin-for-form">
+
     <!--Row starts-->
-    <div class="row">
+    <div class="row custom-margin-for-form">
         <div class="col-lg-2">
         </div>
 
@@ -29,56 +14,31 @@ $workout_id = filter_var($workout_id, FILTER_SANITIZE_STRING);
             <p></p>
             <form class="custom-form" action="" method="post">
 
-                <h2>LISÄÄ PALVELU </h2>
-
-                
-                <!--<?php if (isset($workout_id)) { ?>-->
+                <h2>LISÄÄ PALVELU </h2>              
 
                     <div class="form-group row">
                         <!--<label class="col-sm-3 col-form-label">ID</label>-->
                         <!--service_id was before workout_id-->
                         <div class="col">
-                            <!--<input id="workout_id" type="number" class="form-control" name="workout_id" id="workout_id" value="<?php echo $workout_id ?>" readonly />-->                 
-                            
+                            <!--<input id="workout_id" type="number" class="form-control" name="workout_id" id="workout_id" value="<?php echo $workout_id ?>" readonly />-->
                         </div>
                     </div>
-                <!--<?php
-                    $query_select = "SELECT `date`, `time`,free_slots, `status`,trainer_id,`name`, title_id,title FROM workouts_timetable 
-                               LEFT JOIN workout_titles ON workouts_timetable.title_id=workout_titles.id 
-                               LEFT JOIN users ON workouts_timetable.trainer_id=users.id
-                               WHERE  workout_id='$workout_id'";
-                    $result_select = $connect->query($query_select);
-                    if (!$result_select) {
-                        var_dump($query_insert);
-                        var_dump($connect->error);
-                        die;
-                    } else {
-                        $row = $result_select->fetch_assoc();
-                        $date = $row['date'];
-                        $time = $row['time'];
-                        $title_id = $row['title_id'];
-                        $workout_title = $row['title'];
-                        $trainer_id = $row['trainer_id'];
-                        $trainer = $row['name'];
-                        $free_slots = $row['free_slots'];
-                        $status = $row['status'];
-                    }
-                }
-                ?>-->
-
+                
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">{{ form.date.label }}</label>
-                                     
+                    <!--<label class="col-sm-3 col-form-label">Päivämäärä</label>-->
+                    <label class="col-sm-3 col-form-label">{{ form.date.label }}</label> 
+
                     <div class="col">
                         <!--<input type="date" class="form-control" name="date" id="date" value="<?php echo (isset($workout_id)) ? $date : "" ?>" />
                         <?php echo isset($error['date_error']) ? $error['date_error'] : ''; ?>-->                        
-                        {{ form.date(id="date", class="form-control mr-5") }}                                            
+                        {{ form.date(id="date", class="form-control mr-5") }}                        
                     </div>
                 </div>
 
                 <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label">Ajankohta</label>-->
                     <label class="col-sm-3 col-form-label">{{ form.time.label }}</label>
-                    
+                     
                     <div class="col">
                         <!--<input type="time" class="form-control" name="time" id="time" value="<?php echo (isset($workout_id)) ? $time : "" ?>" />
                         <?php echo isset($error['time_error']) ? $error['time_error'] : ''; ?>-->
@@ -87,31 +47,16 @@ $workout_id = filter_var($workout_id, FILTER_SANITIZE_STRING);
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">{{ form.service.label }}</label>                                        
-                    <!--<?php
-                    $titles = [];
-                    $query = "SELECT title,id FROM workout_titles ORDER BY title";
-                    $result = $connect->query($query);
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            $titles[$row['id']] = $row["title"];
-                        }
-                    }
-                    ?>-->
+                    <!--<label class="col-sm-3 col-form-label">Liikuntalaji</label>-->
+                    <label class="col-sm-3 col-form-label">{{ form.service.label }}</label>
+                                     
                     <div class="col">
-                        {{ form.service(id="service", class="form-control mr-5") }}
-                        <!--<select id="title" class=form-control name="title">
-                            <?php
-                            foreach ($titles as $id => $title) {
-                                $select = (isset($workout_id) && ($title == $workout_title)) ? "selected" : "";
-                                echo "<option value=\"$id\" $select>$title</option>";
-                            }
-                            ?>
-                        </select>-->
+                        {{ form.service(id="service", class="form-control mr-5") }}                        
                     </div>
                 </div>
 
                 <div class="form-group row">
+                    <!--<label class="col-sm-3 col-form-label">Ohjaaja</label>-->
                     <label class="col-sm-3 col-form-label">{{ form.hairdresser.label }}</label>
                     
                     <div class="col">
@@ -120,31 +65,7 @@ $workout_id = filter_var($workout_id, FILTER_SANITIZE_STRING);
                         </select>-->
                     </div>
                 </div>
-
-                <!--<div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Vapaat paikat</label>
-                    <div id= "free_max_slots" class="col">                        
-                    </div>
-                </div>-->
-                <!--
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Tila</label>
-                   
-                    <div class="col">
-                       
-                        <?php $select = isset($workout_id) ? $status : "" ?>
-                        <select id="status" class=form-control name="status" value="<?php echo (isset($_GET['workout_id'])) ? $status : "" ?>">
-                            <option value="Future" <?php echo (($select == "future") ? "selected" : "") ?>>Tuleva</option>
-                            <option value="Done" <?php echo (($select == "done") ? "selected" : "") ?>>Päättynyt</option>
-                            <option value="Canceled" <?php echo (($select == "canceled") ? "selected" : "") ?>>Peruutettu</option>
-                        </select>
-                    </div>
-                </div>-->
-
-                <!--<button type="submit" name="submit" id="submit" class="btn btn-lg btn-block custom-outline-button">
-                    <?php echo (isset($workout_id)) ? "Muokaa" : "Lisää" ?>
-                </button>-->
-
+               
                 {{ form.submit( class="btn btn-lg btn-block custom-outline-button", id="submit" ) }}  
                 
 
@@ -157,7 +78,7 @@ $workout_id = filter_var($workout_id, FILTER_SANITIZE_STRING);
         </div>
     </div>
     <!--Row ends-->
-</div>
+
 {% endblock %}
 
 <script type="text/javascript" src="trainer_select.js"></script>

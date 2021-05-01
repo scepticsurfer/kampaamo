@@ -118,8 +118,8 @@ class ServiceTimetable(db.Model):
     date = db.Column(db.Date)
     time = db.Column(db.DateTime)
     service_id = db.Column(db.Integer)
-    hairdresser_id = (db.Integer)
-    status = db.Column(db.Enum('done', 'canceled','future'))
+    hairdresser_id =db.Column(db.Integer)
+    status = db.Column(db.Enum('Done', 'Canceled','Future'))
 
     def __repr__(self):
         return '<ServiceTimetable %r>' % self.service_id     

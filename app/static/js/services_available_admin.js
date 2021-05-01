@@ -46,7 +46,7 @@ let servicesAll = function(event) {
                        <td>${item.username}</td>
                        <td>${item.price}</td>
                        <td>${item.status}</td>
-                       <td><a href="new_change_workout.php?workout_id=${item.timetable_id}" class="btn custom-green-buy">Muokaa</a></td>                
+                       <td><a href="/admins/change_service/${item.timetable_id}" class="btn custom-green-buy">Muokaa</a></td>                
                        
                        </tr>
             `;

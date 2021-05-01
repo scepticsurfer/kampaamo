@@ -35,13 +35,14 @@ def login():
         if user is not None and user.verify_password(form.password.data):
             if form.remember_me.data:
                 duration_remember=timedelta(days=30)
-                login_user(user, form.remember_me.data,duration_remember)
+                login_user(user, form.remember_me.data,duration_remember)                
             else:
                 login_user(user, form.remember_me.data)    
             next = request.args.get('next')
             if next is None or not next.startswith('/'):
-                next = url_for('main.client_page')
-            return redirect(next)
+                #next = url_for('main.client_page')
+                next = url_for('main.index')
+            return redirect(next)            
         flash('Invalid email or password.')
     return render_template('auth/login.html', form=form)
 
