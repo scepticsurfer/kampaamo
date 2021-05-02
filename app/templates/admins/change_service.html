@@ -5,9 +5,10 @@ HIUSMAGIA parturi kampaamo
 
 
 {% block content %}
-<div class="custom-margin-for-form">
+{% if current_user.is_authenticated %}
+    {% if current_user.admin == 1 %}
     <!--Row starts-->
-    <div class="row">
+    <div class="row custom-margin-for-form">
         <div class="col-lg-2">
         </div>
 
@@ -15,7 +16,7 @@ HIUSMAGIA parturi kampaamo
             <p></p>
             <form class="custom-form" action="" method="post">
 
-                <h2>MUOKAA PALVELU </h2>
+                <h2 style="text-align: center;">MUOKAA PALVELU </h2>
 
                 
                 <div class="form-group row">
@@ -79,6 +80,51 @@ HIUSMAGIA parturi kampaamo
         </div>
     </div>
     <!--Row ends-->
-</div>
-{% endblock %}
 
+    {% elif current_user.admin != 1 %}
+    <!--Row starts-->
+    <div class="row custom-margin-for-form">
+        <div class="col-lg-2">        
+        </div>
+
+        <div class="col-lg-8">        
+            <div class="custom-form">
+            <h2 style="text-align: center;">KIRJAUDU ADMINISTRAATTORIN SIVULLE</h2> 
+            <p style="text-align: center; font-size: 120%;">TÄMÄ SIVU ON TARKOITETTU VAIN ADMINISTRAATTORILLE.<br>
+            KIRJAUDU ULOS ASIAKKAAN TILILTA<br> 
+            JA KIRJAUDU SISÄÄN ADMINISTRAATTORINA.<br>                 
+            </p>       
+            <p><a href="{{ url_for('auth.logout') }}" class="btn btn-block mt-0 custom-green-buy">KIRJAUDU ULOS</a></p>
+            <p><a href="{{ url_for('main.client_page') }}" class="btn btn-block mt-0 custom-green-buy">ASIAKKAAN SIVULLE</a></p>        
+            </div>                   
+        </div>
+
+        <div class="col-lg-2">        
+        </div>
+    </div>
+    <!--Row ends-->
+{% endif %}
+{% else %}
+
+<!--Row starts-->
+<div class="row custom-margin-for-form">
+    <div class="col-lg-2">        
+    </div>
+
+    <div class="col-lg-8">        
+        <div class="custom-form">
+        <h2 style="text-align: center;">KIRJAUDU ADMINISTRAATTORIN SIVULLE</h2> 
+        <p style="text-align: center; font-size: 120%;">TÄMÄ SIVU ON TARKOITETTU VAIN ADMINISTRAATTORILLE.<br>
+        KIRJAUDU SISÄÄN ADMINISTRAATTORINA.           
+        </p>       
+        <p><a href="{{ url_for('auth.login') }}" class="btn btn-block mt-0 custom-green-buy">KIRJAUDU SISÄÄN</a></p>                    
+        </div>                   
+    </div>
+
+    <div class="col-lg-2">        
+    </div>
+</div>
+<!--Row ends--> 
+
+{% endif %}    
+{% endblock %}

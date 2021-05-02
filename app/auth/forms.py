@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Length, Email, Regexp, EqualTo
 from wtforms import ValidationError
 from ..models import User
@@ -14,14 +14,13 @@ class LoginForm(FlaskForm):
 
 class RegistrationForm(FlaskForm):
     email = StringField('Sähköposti', validators=[DataRequired(), Length(1, 64),
-                                             Email()])
-    username = StringField('Etunimi Sukunimi', validators=[
+                                             Email('Sähköpostiosoitteen muoto on virheellinen.')])
+    username = StringField('Nimi', validators=[
         DataRequired(), Length(1, 64),
         Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
-               'Käyttäjänimissä pitää olla vain kirjaimet, numerot, pisteet tai '
-               'alaviivat')]) 
-    phone_number=TelField('Puhelinnumero',validators=[Regexp(r"[0-9]{3}\-[0-9]{3}\-[0-9]{4}")], render_kw={"placeholder": "123-456-7890"})
-
+               'Nimessä saa olla vain kirjaimia, numeroita, pisteitä tai '
+               'alaviivoja.')])
+    phone_number=TelField('Puhelinnumero',validators=[Regexp(r"[0-9]{3}\-[0-9]{3}\-[0-9]{4}", message='Puhelinnumeron muoto on virheellinen.')], render_kw={"placeholder": "123-456-7890"})
     password = PasswordField('Salasana', validators=[Regexp( r"^(?=.{8,32}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*", message='Salasanassa täytyy olla 8-32 merkkiä, yksi tai useampia isoja ja pieniä kirjaimia, yksi tai useampi numero.'),
         DataRequired(), EqualTo('password2', message='Salasanojen täytyy täsmätä.')])
     password2 = PasswordField('Vahvista salasana', validators=[DataRequired()])
@@ -31,9 +30,9 @@ class RegistrationForm(FlaskForm):
         if User.query.filter_by(email=field.data.lower()).first():
             raise ValidationError('Sähköposti on jo olemassa.')
 
-    def validate_username(self, field):
-        if User.query.filter_by(username=field.data).first():
-            raise ValidationError('Käyttäjänimi on jo olemassa.')
+    #def validate_username(self, field):
+        #if User.query.filter_by(username=field.data).first():
+            #raise ValidationError('Käyttäjänimi on jo olemassa.')
 
 
 class ChangePasswordForm(FlaskForm):

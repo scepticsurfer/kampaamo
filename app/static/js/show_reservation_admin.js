@@ -26,8 +26,8 @@ let reservationsAll = function(event) {
         <th class="d-none">id </th>
         <th scope="col">Päivämäärä</th>
         <th scope="col">Ajankohta</th>
-        <th scope="col">Liikuntalaji</th>
-        <th scope="col">Ohjaaja</th>
+        <th scope="col">Palvelu</th>
+        <th scope="col">Osaaja</th>
         <th scope="col">Asiakas</th> 
         <th scope="col">Asiakkaan puhelinnumero</th>                                                                        
     </tr>

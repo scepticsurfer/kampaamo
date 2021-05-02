@@ -5,6 +5,8 @@ HIUSMAGIA parturi kampaamo
 {% endblock %}
 
 {% block content %}
+{% if current_user.is_authenticated %}
+    {% if current_user.admin != 1 %}
     <h2 class="custom-txt-center custom-margin-bottom-4">TERVETULOA ASIAKKAAN SIVULLE</h2>  
 
     <!--Row starts-->
@@ -120,6 +122,55 @@ HIUSMAGIA parturi kampaamo
     <!--Row ends-->
 <script type="text/javascript" src="{{ url_for('static', filename='/js/client_reserv_select.js') }}"></script>   
 <script type="text/javascript" src="{{ url_for('static', filename='/js/cancel_reservation.js') }}"></script>
+
+    {% elif current_user.admin == 1 %}
+        <!--Row starts-->
+        <div class="row custom-margin-for-form">
+            <div class="col-lg-2">        
+            </div>
+
+            <div class="col-lg-8">        
+                <div class="custom-form">
+                <h2 style="text-align: center;">KIRJAUDU ASIAKKAAN SIVULLE</h2> 
+                <p style="text-align: center; font-size: 120%;">AJAN VARAUS ON TARKOITETTU VAIN REKISTERÖTYNEILLE ASIAKKAILLE.<br>
+                KIRJAUDU ULOS ADMINISTRAATTORIN TILILTA<br> 
+                JA KIRJAUDU SISÄÄN ASIAKKAANA.<br>                 
+                </p>       
+                <p><a href="{{ url_for('auth.logout') }}" class="btn btn-block mt-0 custom-green-buy">KIRJAUDU ULOS</a></p>
+                <p><a href="{{ url_for('main.admin_page') }}" class="btn btn-block mt-0 custom-green-buy">ADMINISTRAATTORIN SIVULLE</a></p>        
+                </div>                   
+            </div>
+
+            <div class="col-lg-2">        
+            </div>
+        </div>
+        <!--Row ends-->
+    {% endif %}
+{% else %}
+
+    <!--Row starts-->
+    <div class="row custom-margin-for-form">
+        <div class="col-lg-2">        
+        </div>
+
+        <div class="col-lg-8">        
+            <div class="custom-form">
+            <h2 style="text-align: center;">KIRJAUDU ASIAKKAAN SIVULLE</h2> 
+            <p style="text-align: center; font-size: 120%;">AJAN VARAUS ON TARKOITETTU VAIN REKISTERÖTYNEILLE ASIAKKAILLE.<br>
+            KIRJAUDU SISÄÄN TAI LUO TILI.<br> 
+            SE ON ILMAISTA JA VIE VAIN PARI MINUUTTIA. 
+            </p>       
+            <p><a href="{{ url_for('auth.login') }}" class="btn btn-block mt-0 custom-green-buy">KIRJAUDU SISÄÄN</a></p>
+            <p><a href="{{ url_for('auth.register') }}" class="btn btn-block mt-0 custom-green-buy">LUO TILI</a></p>        
+            </div>                   
+        </div>
+
+        <div class="col-lg-2">        
+        </div>
+    </div>
+    <!--Row ends--> 
+    
+{% endif %}
 {% endblock %}
 
 <script type="text/javascript" src="client_reserv_select.js"></script>

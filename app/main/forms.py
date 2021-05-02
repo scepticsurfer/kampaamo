@@ -96,9 +96,9 @@ class ChangeAdminServiceForm(FlaskForm):
         validators=[DataRequired()],
         choices=[
             ("", "---"),
-            ('Done', 'Done'),
-            ('Canceled', 'Canceled'),
-            ('Future', 'Future')           
+            ('Loppunut', 'Loppunut'),
+            ('Peruutettu', 'Peruutettu'),
+            ('Tuleva', 'Tuleva')           
         ]
     ) 
     submit = SubmitField('Muokaa')    
@@ -114,8 +114,7 @@ class ChangeAdminServiceForm(FlaskForm):
 
 class FeedbackForm(FlaskForm):
     username = StringField('Nimi', [validators.Required("Kirjoita nimesi.")]) 
-    email = StringField('Sähköposti', [validators.Required("Kirjoita sähköpostisi."), validators.Email("Kirjoita sähköpostisi.")])
+    email = StringField('Sähköposti', [validators.Required("Kirjoita sähköpostisi."), validators.Email("Sähköpostiosoitteen muoto on virheellinen.")])
     subject = StringField('Aihe', [validators.Required("Kirjoita aihe.")])
     message = TextAreaField('Viesti', [validators.Required("Kirjoita viestisi.")])
-    submit = SubmitField('Ota yhteyttä')  
-    
+    submit = SubmitField('Ota yhteyttä')     

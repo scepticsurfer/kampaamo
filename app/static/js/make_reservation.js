@@ -17,7 +17,7 @@ let changeTables = function (event) {
                     element.parentElement.parentElement.remove();
                     Swal.fire({
                         title: '',
-                        text: 'Paikka varattu. Tervetuloa harjoiteluun!',
+                        text: 'Palvelu varattu. Tervetuloa!',
                         icon: 'success',
                         confirmButtonText: 'Sulje'
                     })
@@ -25,7 +25,7 @@ let changeTables = function (event) {
                     if (data.existing == "true") {
                         Swal.fire({
                             title: '',
-                            text: 'Sinulla on jo treeni tänä aikana',
+                            text: 'Sinulla on jo sama aika varattuna',
                             icon: 'error',
                             confirmButtonText: 'Sulje'
                         })

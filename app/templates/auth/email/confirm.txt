@@ -1,13 +1,13 @@
-Dear {{ user.username }},
+Hyvä {{ user.username }},
 
-Welcome to Flasky!
+Tervetuloa HIUSMAGIAAN!
 
-To confirm your account please click on the following link:
+Vahvista tilisi napsauttamalla seuraavaa linkkiä:
 
 {{ url_for('auth.confirm', token=token, _external=True) }}
 
-Sincerely,
+Ystävällisin terveisin,
 
-The Flasky Team
+HIUSMAGIAN tiimi
 
-Note: replies to this email address are not monitored.
+Huom: Tähän sähköpostiosoitteeseen lähetettyjä viestejä ei tarkisteta.

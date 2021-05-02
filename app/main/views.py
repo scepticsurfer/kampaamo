@@ -14,6 +14,7 @@ from flask_mail import Message
 from .. import mail
 
 
+
 @main.route('/')
 def index():
     return render_template('index.html')
@@ -26,30 +27,54 @@ def company():
 def trainers():
     return render_template("trainers/trainers.html")
 
+@main.route("/palvelut/palvelut/") 
+def palvelut():
+    return render_template("palvelut/palvelut.html")
+
 @main.route("/cart/tuoteluettelo/")
 def tuoteluettelo():
     return render_template("cart/tuoteluettelo.html")
 
 @main.route("/contacts/feedback/", methods=['GET', 'POST'])
 def feedback():
-    form = FeedbackForm ()   
+    form = FeedbackForm ()  
+    
+    if form.validate_on_submit():
+        db = SQLAlchemy() 
 
-    if request.method == 'POST':
-        if form.validate() == False:
-            #flash('OLGA: All fields are required.')
-            return render_template("contacts/feedback.html", form=form)
-        else:
-            msg = Message(form.subject.data, sender='contact@example.com', recipients=['paras.testaaja@gmail.com'])
-            msg.body = """
-            From: %s <%s>
-            %s
-            """ % (form.username.data, form.email.data, form.message.data)
-            mail.send(msg) 
-            
-            return render_template("contacts/feedback.html", success=True)  
+        username=form.username.data
+        email=form.email.data
+        theme=form.subject.data
+        feedback=form.message.data
+        
+        sql_insert = "INSERT INTO feedback(`username`, `email`, theme, feedback)\
+                       VALUES ('" + str(username) + "','" + str(email) + "','" + str(theme) + "','" + str(feedback) + "')"
+         
+        result_insert = db.engine.execute(sql_insert)
 
-    elif request.method == 'GET':   
-        return render_template("contacts/feedback.html", form=form)
+        app = current_app._get_current_object()
+        
+        send_email(app.config['HIUSMAGIA_ADMIN'], 'UUSI PALAUTE',
+               'auth/email/new_feedback', username=username, email=email, theme=theme, feedback=feedback)
+
+        return render_template("contacts/feedback.html", success=True) 
+    return render_template("contacts/feedback.html", form=form)      
+    #if request.method == 'POST':
+    #    if form.validate() == False:
+    #        
+    #        return render_template("contacts/feedback.html", form=form)
+    #    else:
+    #        msg = Message(form.subject.data, sender='contact@example.com', recipients=['carie@mail.ru'])
+    #        msg.body = """
+    #        From: %s <%s>
+    #        %s
+    #        """ % (form.username.data, form.email.data, form.message.data)
+    #        mail.send(msg) 
+    #        
+    #        return render_template("contacts/feedback.html", success=True)  
+
+    #elif request.method == 'GET':   
+    #    return render_template("contacts/feedback.html", form=form)
     #flash('Kiitos yhteydenotosta! Otamme sinuun yhteyttä mahdollisimman pian.')
 
 # on the client page    
@@ -169,7 +194,7 @@ def servicesAvailable():
                 LEFT JOIN services ON service_timetable.service_id=services.id\
                 LEFT JOIN users ON service_timetable.hairdresser_id=users.id\
                 WHERE (`date`>='" + str(date_from) +"' AND `date`<= '" + str(date_to) +"') AND\
-                 `status`='future'" + str(query_part))
+                 `status`='Tuleva'" + str(query_part))
     result = db.engine.execute(sql)
 
     response = []
@@ -208,7 +233,21 @@ def makeReservation():
     sql_insert = text("INSERT INTO service_registration (`date`,`time`,timetable_id,service_id,client_id,hairdresser_id)\
                        VALUES ('" + str(date) +"','"+ str(time) + "','"+ str(id_in_timetable) +"','"\
                         +str(service_id) +"','" + str(client_id)+"','"+ str(hairdresser_id) + "')")
-    result_insert = db.engine.execute(sql_insert) 
+    result_insert = db.engine.execute(sql_insert)
+
+    sql_hairdresser = text("SELECT `username`FROM users WHERE id='"+str(hairdresser_id)+"'")
+    result_hairdresser = db.engine.execute(sql_hairdresser)
+    for row in result_hairdresser:
+        hairdresser_name=row.username
+
+    sql_service = text("SELECT `service_name`FROM services WHERE id='"+str(service_id)+"'")
+    result_service = db.engine.execute(sql_service)
+    for row in result_service:
+        service_name=row.service_name
+
+    email=current_user.email 
+    send_email(email, 'Ajan varaus',
+               'auth/email/reservation_message', date=date, time=time, hairdresser_name=hairdresser_name, service_name=service_name)
 
     #delete_str=ServiceTimetable.query.filter_by(id=id_in_timetable).first()
     #db.session.commit()
@@ -349,7 +388,7 @@ def new_service():
                     time=form.time.data,
                     service_id =form.service.data,
                     hairdresser_id=form.hairdresser.data,
-                    status='Future')
+                    status='Tuleva')
                     
                
         db.session.add(service_new)

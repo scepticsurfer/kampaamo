@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% block title %}
+HIUSMAGIA parturi kampaamo
+{% endblock %}
+{% block content %}
+    <h1 class="custom-txt-center">MEIDÄN PALVELUT</h1>
+    <p></p>
+    <!--Row starts-->
+    <div class="row row-cols-1 row-cols-md-4 g-4">    
+        <div class="col custom-margin-bottom">
+            <div class="card h-100 custom-card">
+                <img src="{{ url_for('static', filename='/pics/leikkaukset.jpeg/') }}" class="card-img-top" alt="..."> 
+                <div class="card-body">
+                    <h5 class="card-title">Leikkaukset</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
+                    <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+                </div>
+            </div>
+        </div>
+        <div class="col custom-margin-bottom">
+            <div class="card h-100 custom-card">
+            <img src="{{ url_for('static', filename='/pics/varjaykset.jpg/') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Värjäykset</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+            </div>
+            </div>
+        </div>
+        <div class="col custom-margin-bottom">
+            <div class="card h-100 custom-card">
+            <img src="{{ url_for('static', filename='/pics/monimutkaiset.jpg/') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Monimutkaiset värjäykset</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+            </div>
+            </div>
+        </div>
+        <div class="col custom-margin-bottom">
+            <div class="card h-100 custom-card">
+            <img src="{{ url_for('static', filename='/pics/kampaukset.jpeg/') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Kampaukset</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!--Row ends-->      
+
+    <!--Row starts-->
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col custom-margin-bottom">
+            <div class="card h-100 custom-card">
+            <img src="{{ url_for('static', filename='/pics/kihartamiset.jpg/') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Kihartamiset</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+            </div>
+            </div>
+        </div>
+        <div class="col custom-margin-bottom">
+            <div class="card h-100 custom-card">
+            <img src="{{ url_for('static', filename='/pics/pikafiksaukset.jpg/') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Pikafiksaukset</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+            </div>
+            </div>
+        </div>
+        <div class="col custom-margin-bottom">
+            <div class="card h-100 custom-card">
+            <img src="{{ url_for('static', filename='/pics/meikit.jpg/') }}" class="card-img-top" alt="..."> 
+            <div class="card-body">
+                <h5 class="card-title">Meikit</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+            </div>
+            </div>
+        </div>
+        <div class="col custom-margin-bottom">
+            <div class="card h-100 custom-card">
+            <img src="{{ url_for('static', filename='/pics/manikyyri.jpg/') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Manikyyri</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec lectus risus. A sem a nisl feugiat fringilla et eu eros.</p>
+                <a href="{{ url_for('main.reservation') }}" class="btn btn-block btn-sm custom-outline-button">VARAA AIKA</a>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!--Row ends-->
+{% endblock %}

@@ -35,15 +35,14 @@ def login():
         if user is not None and user.verify_password(form.password.data):
             if form.remember_me.data:
                 duration_remember=timedelta(days=30)
-                login_user(user, form.remember_me.data,duration_remember)                
+                login_user(user, form.remember_me.data,duration_remember)
             else:
                 login_user(user, form.remember_me.data)    
             next = request.args.get('next')
             if next is None or not next.startswith('/'):
-                #next = url_for('main.client_page')
                 next = url_for('main.index')
-            return redirect(next)            
-        flash('Invalid email or password.')
+            return redirect(next)
+        flash('Virheellinen sähköpostiosoite tai salasana.')
     return render_template('auth/login.html', form=form)
 
 
@@ -51,7 +50,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('You have been logged out.')
+    flash('Olet kirjautunut ulos tililtäsi.')
     return redirect(url_for('main.index'))
 
 
@@ -66,10 +65,12 @@ def register():
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirmation_token()
-        send_email(user.email, 'Confirm Your Account',
+        send_email(user.email, 'Vahvista tilisi',
                    'auth/email/confirm', user=user, token=token)
-        flash('A confirmation email has been sent to you by email.')
+        flash('Vahvistusviesti on lähetetty sinulle sähköpostitse.')
         return redirect(url_for('auth.login'))
+    else:
+        print(form.errors)
     return render_template('auth/register.html', form=form)
 
 
@@ -80,9 +81,9 @@ def confirm(token):
         return redirect(url_for('main.index'))
     if current_user.confirm(token):
         db.session.commit()
-        flash('You have confirmed your account. Thanks!')
+        flash('Olet vahvistanut tilisi. Kiitos!')
     else:
-        flash('The confirmation link is invalid or has expired.')
+        flash('Vahvistuslinkki on virheellinen tai on vanhentunut.')
     return redirect(url_for('main.index'))
 
 
@@ -92,7 +93,7 @@ def resend_confirmation():
     token = current_user.generate_confirmation_token()
     send_email(current_user.email, 'Confirm Your Account',
                'auth/email/confirm', user=current_user, token=token)
-    flash('A new confirmation email has been sent to you by email.')
+    flash('Uusi vahvistusviesti on lähetetty sinulle sähköpostitse.')
     return redirect(url_for('main.index'))
 
 
@@ -105,10 +106,10 @@ def change_password():
             current_user.password = form.password.data
             db.session.add(current_user)
             db.session.commit()
-            flash('Your password has been updated.')
+            flash('Salasanasi on päivitetty.')
             return redirect(url_for('main.index'))
         else:
-            flash('Invalid password.')
+            flash('Virheellinen salasana.')
     return render_template("auth/change_password.html", form=form)
 
 
@@ -121,11 +122,11 @@ def password_reset_request():
         user = User.query.filter_by(email=form.email.data.lower()).first()
         if user:
             token = user.generate_reset_token()
-            send_email(user.email, 'Reset Your Password',
+            send_email(user.email, 'Nollaa salasana',
                        'auth/email/reset_password',
                        user=user, token=token)
-        flash('An email with instructions to reset your password has been '
-              'sent to you.')
+        flash('Sinulle on lähetetty sähköposti, jossa on ohjeet '
+              'salasanan vaihtamiseksi.')
         return redirect(url_for('auth.login'))
     return render_template('auth/reset_password.html', form=form)
 
@@ -138,11 +139,11 @@ def password_reset(token):
     if form.validate_on_submit():
         if User.reset_password(token, form.password.data):
             db.session.commit()
-            flash('Your password has been updated.')
+            flash('Salasanasi on päivitetty.')
             return redirect(url_for('auth.login'))
         else:
             return redirect(url_for('main.index'))
-    return render_template('auth/password_reset.html', form=form)
+    return render_template('auth/reset_password.html', form=form)
 
 
 @auth.route('/change_email', methods=['GET', 'POST'])
@@ -153,14 +154,14 @@ def change_email_request():
         if current_user.verify_password(form.password.data):
             new_email = form.email.data.lower()
             token = current_user.generate_email_change_token(new_email)
-            send_email(new_email, 'Confirm your email address',
+            send_email(new_email, 'Vahvista sähköpostiosoitteesi',
                        'auth/email/change_email',
                        user=current_user, token=token)
-            flash('An email with instructions to confirm your new email '
-                  'address has been sent to you.')
+            flash('Sinulle on lähetetty sähköposti, jossa on ohjeet '
+                  'sähköpostiosoitteen vaihtamiseksi.')
             return redirect(url_for('main.index'))
         else:
-            flash('Invalid email or password.')
+            flash('Virheellinen sähköpostiosoite tai salasana.')
     return render_template("auth/change_email.html", form=form)
 
 
@@ -169,7 +170,7 @@ def change_email_request():
 def change_email(token):
     if current_user.change_email(token):
         db.session.commit()
-        flash('Your email address has been updated.')
+        flash('Sähköpostiosoitteesi on päivitetty.')
     else:
-        flash('Invalid request.')
+        flash('Virheellinen pyyntö.')
     return redirect(url_for('main.index'))

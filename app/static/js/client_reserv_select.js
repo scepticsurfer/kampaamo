@@ -22,8 +22,8 @@ let rezervWorkouts = function(event) {
         <th class="d-none">id </th>
         <th scope="col">Päivämäärä</th>
         <th scope="col">Ajankohta</th>
-        <th scope="col">Liikuntalaji</th>
-        <th scope="col">Ohjaajat</th> 
+        <th scope="col">Palvelu</th>
+        <th scope="col">Osaajat</th> 
         <th scope="col">Peruuta</th>                        
     </tr> `
         head_table.innerHTML += content_head;

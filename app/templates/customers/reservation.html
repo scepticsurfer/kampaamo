@@ -50,6 +50,13 @@ HIUSMAGIA parturi kampaamo
                 
                 <div class="col-md-8 order-md-1">
                     <h4 class="mb-4 text-success">AJAN VARAUS OSAAJALLE</h4>
+                    <div style="background: white; padding: 1%; margin: 1%; border-radius:3px; text-align:center;">
+                        <p></p>
+                        <p>Jos haluttu palvelu ei löydetty haluttuun aikaan, 
+                            ole hyvä ja ota yhteyttä administraattoriin puhelimitse 040-123-4567.
+                        Löydämme mielellämme sinulle sopivan ratkaisun!
+                        </p>
+                    </div>
                     <form>
                         <!--Row starts-->
                         <div class="row">
@@ -139,6 +146,7 @@ HIUSMAGIA parturi kampaamo
     <!--Row ends-->
 <script type="text/javascript" src="{{ url_for('static', filename='/js/services_available.js') }}"></script>    
 <script type="text/javascript" src="{{ url_for('static', filename='/js/make_reservation.js') }}"></script>
+
     {% elif current_user.admin == 1 %}
         <!--Row starts-->
         <div class="row custom-margin-for-form">
