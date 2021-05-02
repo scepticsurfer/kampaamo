@@ -143,7 +143,7 @@ def password_reset(token):
             return redirect(url_for('auth.login'))
         else:
             return redirect(url_for('main.index'))
-    return render_template('auth/reset_password.html', form=form)
+    return render_template('auth/password_reset.html', form=form)
 
 
 @auth.route('/change_email', methods=['GET', 'POST'])
