@@ -14,9 +14,20 @@ from flask_mail import Message
 from .. import mail
 
 
+#if you want redirection to customer/admin page after login:
+#problem is that loggedin user can't see frontpage
+#@main.route('/')
+#def index2():
+    #if current_user.is_authenticated:
+            #if current_user.admin != 1:
+                #return redirect(url_for("main.client_page"))
+            #else:
+                #return redirect(url_for("main.admin_page"))
+    #else:
+        #return render_template('index.html')
 
 @main.route('/')
-def index():
+def index():    
     return render_template('index.html')
 
 @main.route("/company/company/") 
@@ -132,7 +143,7 @@ def cancelReservation():
     result_delete = db.engine.execute(sql_delete)
 
     app = current_app._get_current_object()
-    send_email(app.config['HIUSMAGIA_ADMIN'], 'Client canceled reservation',
+    send_email(app.config['HIUSMAGIA_ADMIN'], 'Asiakas peruutti varauksen',
                'auth/email/client_cancel', date=date, time=time, master=request.args.get('master'), username=current_user.username)
                   
     return (jsonify(result_1))
@@ -246,7 +257,7 @@ def makeReservation():
         service_name=row.service_name
 
     email=current_user.email 
-    send_email(email, 'Ajan varaus',
+    send_email(email, 'Ajanvaraus',
                'auth/email/reservation_message', date=date, time=time, hairdresser_name=hairdresser_name, service_name=service_name)
 
     #delete_str=ServiceTimetable.query.filter_by(id=id_in_timetable).first()

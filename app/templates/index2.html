@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+{% block title %}
+HIUSMAGIA parturi kampaamo
+{% endblock %}
+{% block content %}    
+
+    <div class="custom-adds">
+        <div class="row">
+        <div class="col-xl-12 custom-txt-center">
+            <!--<h2 style="color:white; font-family: 'Train One', cursive; font-size: 230%;"><b>TERAPIA ON KALLISTA</b></h2>
+            <h2 style="color:white; font-family: 'Codystar', cursive; font-size: 230%;"><b>SAA HIUSTENLEIKKAUS SEN SIJAAN</b></h2>
+            <h2 style="color:white; font-family: 'Train One', cursive; font-size: 230%;"><b>OLEMME HIENOJA KUUNTELIJOITA</b></h2>-->  
+            
+            <h2 style="color:white; font-family: 'Codystar', cursive; font-size: 230%;"><b>TERAPIA ON KALLISTA</b></h2>
+            <h2 style="color:white; font-family: 'Train One', cursive; font-size: 210%;"><b>SAA HIUSTENLEIKKAUS SEN SIJAAN</b></h2>
+            <h2 style="color:white; font-family: 'Codystar', cursive; font-size: 230%;"><b>OLEMME HIENOJA KUUNTELIJOITA</b></h2>  
+        </div>         
+        </div>     
+    </div>      
+
+    <!--Row starts-->
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="row">
+                <div class="col-xl-7 custom-cart-title-l" ><div class="custom-cart-title-wrap">Shampoot</div></div>
+                <div class="col-xl-5 custom-cart-title-r" ><a href="{{ url_for('main.tuoteluettelo') }}" class="custom-cart">TUOTELUETTELOON</a></div>
+            </div>  
+            <div class="custom-container"><img class="custom-product" src="{{ url_for('static', filename='/pics/product1.jpg/') }}" alt=""> 
+                    <div class="custom-top-right"><h3>alk.20€</h3></div> 
+                                            
+                    <div class="custom-overlay">                   
+                        <div class="custom-image-text">
+                            Shampoot                
+                        </div>                    
+                    </div>                
+            </div>                    
+        </div>
+        <div class="col-xl-6">
+            <div class="row">
+                <div class="col-xl-7 custom-cart-title-l"><div class="custom-cart-title-wrap">Hoitoaineet</div></div>
+                <div class="col-xl-5 custom-cart-title-r"><a href="{{ url_for('main.tuoteluettelo') }}" class="custom-cart">TUOTELUETTELOON</a></div>
+            </div>  
+            <div class="custom-container"><img class="custom-product" src="{{ url_for('static', filename='/pics/product2.jpg/') }}" alt=""> 
+                    <div class="custom-top-right"><h3>alk.15€</h3></div>
+                    <div class="custom-overlay">
+                        <div class="custom-image-text">
+                            Hoitoaineet               
+                        </div>
+                    </div>
+            </div>                    
+        </div>  
+    </div>
+    <!--Row ends-->
+
+    <!--Row starts-->
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="row">
+                <div class="col-xl-7 custom-cart-title-l"><div class="custom-cart-title-wrap">Muotoilutuotteet</div></div>
+                <div class="col-xl-5 custom-cart-title-r"><a href="{{ url_for('main.tuoteluettelo') }}" class="custom-cart">TUOTELUETTELOON</a></div>
+            </div>  
+            <div class="custom-container"><img class="custom-product" src="{{ url_for('static', filename='/pics/product1.jpg/') }}" alt="">
+                    <div class="custom-top-right"><h3>alk.30€</h3></div> 
+                    <div class="custom-overlay">
+                        <div class="custom-image-text">
+                            Muotoilutuotteet                                                             
+                        </div>
+                    </div>
+            </div>                    
+        </div>
+        <div class="col-xl-6">
+            <div class="row">
+                <div class="col-xl-7 custom-cart-title-l"><div class="custom-cart-title-wrap">Hiusvärit</div></div>
+                <div class="col-xl-5 custom-cart-title-r"><a href="{{ url_for('main.tuoteluettelo') }}" class="custom-cart">TUOTELUETTELOON</a></div>
+            </div>  
+            <div class="custom-container"><img class="custom-product" src="{{ url_for('static', filename='/pics/product2.jpg/') }}" alt=""> 
+                    <div class="custom-top-right"><h3>alk.25€</h3></div>
+                    <div class="custom-overlay">
+                        <div class="custom-image-text">
+                            Hiusvärit         
+                        </div>
+                    </div>
+            </div>                    
+        </div>  
+    </div>
+    <!--Row ends-->
+
+    <!--Row starts-->
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="row">
+                <div class="col-xl-7 custom-cart-title-l"><div class="custom-cart-title-wrap">Permanenttiaineet</div></div>
+                <div class="col-xl-5 custom-cart-title-r"><a href="{{ url_for('main.tuoteluettelo') }}" class="custom-cart">TUOTELUETTELOON</a></div>
+            </div>  
+            <div class="custom-container"><img class="custom-product" src="{{ url_for('static', filename='/pics/product1.jpg/') }}" alt="">
+                    <div class="custom-top-right"><h3>alk.20€</h3></div> 
+                    <div class="custom-overlay">
+                        <div class="custom-image-text">
+                            Permanenttiaineet            
+                        </div>
+                    </div>
+            </div>                    
+        </div>
+        <div class="col-xl-6">
+            <div class="row">
+                <div class="col-xl-7 custom-cart-title-l"><div class="custom-cart-title-wrap">Tarvikkeet</div></div>
+                <div class="col-xl-5 custom-cart-title-r"><a href="{{ url_for('main.tuoteluettelo') }}" class="custom-cart">TUOTELUETTELOON</a></div>
+            </div>  
+            <div class="custom-container"><img class="custom-product" src="{{ url_for('static', filename='/pics/product2.jpg/') }}" alt="">
+                    <div class="custom-top-right"><h3>alk.10€</h3></div> 
+                    <div class="custom-overlay">
+                        <div class="custom-image-text">
+                            Tarvikkeet             
+                        </div>
+                    </div>
+            </div>                    
+        </div>  
+    </div>
+    <!--Row ends-->        
+{% endblock %}
+
+<script type="text/javascript" src="cart/put_product_cart.js"></script>

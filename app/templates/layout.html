@@ -16,6 +16,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- <script src="/js/date.js"></script> -->
     <script src="{{ url_for('static', filename='/js/date.js') }}"></script>
+    <script src="{{ url_for('static', filename='/js/week.js') }}"></script>
+    <script src="{{ url_for('static', filename='/js/year.js') }}"></script>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='/pics/favicon.ico')}}"> 
     
   </head>
@@ -123,7 +125,7 @@
     <footer class="custom-footer">
       <div class="container-fluid">
           <div class="custom-padding">
-              <p class="text-light">Copyright &copy; 2021 HIUSMAGIA</p> 
+              <p class="text-light">Copyright &copy; 2020-<script>showYear();</script> HIUSMAGIA</p> 
           </div>   
       </div>
     </footer>

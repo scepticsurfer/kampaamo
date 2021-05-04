@@ -28,7 +28,7 @@ let workoutsAvailable = function(event) {
                         <th scope="col">Palvelu</th>
                         <th scope="col">Osaaja</th>
                         <th scope="col">Hinta(€) </th>
-                        <th scope="col">Ajan varaus</th>                        
+                        <th scope="col">Ajanvaraus</th>                        
                     </tr> `
         head_table.innerHTML += content_head;
         let trSelect = document.querySelector('#services_available');
