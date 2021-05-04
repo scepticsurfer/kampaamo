@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}HIUSMAGIA - Vahvista tilisi{% endblock %}
+
+{% block content %}
+
+    <!--Row starts-->
+    <div class="row custom-margin-for-form">
+        <div class="col-lg-2">        
+        </div>
+                
+        <div class="col-lg-8">
+            <div class="custom-form">
+                <h1>
+                    Hyvä {{ current_user.username }}!
+                </h1>
+                <h3>Et ole vielä vahvistanut tiliäsi.</h3>
+                <p>
+                    Ennen kuin pääset tälle sivustolle, sinun on vahvistettava tilisi.
+                    Tarkista postilaatikkosi, sinun olisi pitänyt saada sähköpostiviesti, jossa on vahvistuslinkki.
+                </p>
+                <p>
+                    Tarvitsetko uuden vahvistussähköpostin?
+                    <a href="{{ url_for('auth.resend_confirmation') }}">Klikkaa tästä</a>
+                </p>
+            </div>
+        </div>   
+            
+        <div class="col-lg-2">        
+        </div>
+    </div>
+    <!--Row ends--> 
+
+{% endblock %}

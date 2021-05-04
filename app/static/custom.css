@@ -22,6 +22,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Libre+Barcode+39&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Bowlby+One+SC&family=Carter+One&family=Dela+Gothic+One&family=Paytone+One&family=Righteous&family=Staatliches&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Blinker:wght@800;900&family=Heebo:wght@900&family=Monoton&family=Paytone+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bowlby+One+SC&family=Fredericka+the+Great&family=Marcellus+SC&family=Train+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cagliostro&family=Codystar&family=Fredericka+the+Great&family=Macondo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fascinate&family=Libre+Barcode+39+Extended+Text&family=Libre+Barcode+39+Text&family=Poller+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Erica+One&family=GFS+Neohellenic&family=Pompiere&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mukta+Vaani:wght@200;300;400;500;600;700;800&display=swap');
+
+h1{
+    font-size: 320%; 
+    font-family: 'Mukta Vaani', sans-serif; /*'Macondo', cursive;*/
+    color: #581845;
+    opacity: 0.7;
+}
+
+h2{
+    font-size: 220%;
+    color: #581845;
+    opacity: 0.7;
+}
+
+h4{
+    color: #581845; 
+    opacity: 0.7; 
+}
+
+h5{
+    color: #C70039; /*#900C3F;*/
+}
 
 #logo{
 	float:left;
@@ -29,7 +57,7 @@
 	width:290px; /*controls distance between logo and navigation links*/
 	padding: 8px 0; /*for text*/
 	margin:0; /*logo positioning*/
-	background: transparent url(../pics/i-logo4.png) no-repeat 0px 0px; /*padding around picture*/
+	background: transparent url("../static/pics/i-logo5.png") no-repeat 0px 0px; /*padding around picture*/
 	text-align:left;
 	outline: 0px solid green;
 	}
@@ -79,9 +107,9 @@ padding: 0;
     padding:0;
   }
 
-html {background: #F8F9FA;} /* {background: #F8F9FA url("../pics/pattern-TRANSPARENT.png");}*/
+html {background: #FBEFE1;} /* {background: #F8F9FA url("../pics/pattern-TRANSPARENT.png");}*/
 
-.custom-body {background: #F8F9FA;}
+.custom-body {background: #FBEFE1;}
 
 .bg-custom { 
     background-color: #4D5256; 
@@ -114,7 +142,7 @@ html {background: #F8F9FA;} /* {background: #F8F9FA url("../pics/pattern-TRANSPA
 } /*class="nav-item nav-link" */
 
 .custom-cart-link{
-    background: #F64B4B; 
+    background: #900C3F; 
     padding:7px 15px; 
     font-weight:bold;
     color:white;
@@ -123,7 +151,8 @@ html {background: #F8F9FA;} /* {background: #F8F9FA url("../pics/pattern-TRANSPA
 } /*class="nav-item nav-link" */
 
 .custom-cart-link:hover{
-    background: #C82333;
+    background: #581845;
+    /*border-radius: 50%;*/
     padding:7px 15px; 
     color:white;  
     text-decoration:none;  
@@ -155,7 +184,7 @@ html {background: #F8F9FA;} /* {background: #F8F9FA url("../pics/pattern-TRANSPA
     width: 100%;
     opacity: 0;
     transition: .5s ease;
-    background-color: #003366; /*#4D5256*/ /*#547980*/ /*#336699*/  
+    background-color: #581845; /*#4D5256*/ /*#547980*/ /*#336699*/ /*#003366*/ /*#900C3F*/
   }
 
 .custom-container:hover .custom-overlay {
@@ -208,25 +237,33 @@ a.custom-cart{
     padding: 2% 5%;
     margin:0;
     color: white;
-    background: #F64B4B;
+    background: #900C3F;
+    opacity: 0.9;
     text-align: center;
     text-decoration: none;
 }
 
 a.custom-cart:hover{
     color: white;
-    background: #C82333;    
+    background: #581845;    
 } 
 
 .custom-form{
     width: 90%;
     margin: auto;
-    background:white;
+    background: white;    
     padding: 5% 6%;  
-    border-radius: 20px;
+    border-radius: 3px;
     max-width: 600px; 
     box-shadow: 1px 1px 4px 1px rgba(0,0,0,.1); 
 }
+
+/*form input#date,
+form input#time,
+form input#service,
+form input#hairdresser{
+    width: 300px;
+}*/ 
 
 .custom-space{    
     height: auto;
@@ -238,7 +275,7 @@ a.custom-cart:hover{
 }
 
 .custom-navbar-color{
-    background: #336699;
+    background: #900C3F; /*#336699*/
     opacity:0.9; /*#547980*/
 }
 
@@ -249,7 +286,7 @@ a.custom-cart:hover{
     bottom: 0;
     width: 100%; 
     height: auto;
-    background: #336699;  /*#6C757D*/ /*#547980*/
+    background: #900C3F;  /*#6C757D*/ /*#547980*/
     opacity:0.9;   
     z-index: 2;
   }
@@ -374,15 +411,19 @@ margin-bottom: 4%;
     padding: 2%;
     border: 1px solid lightgray;
     box-shadow: 1px 1px 4px 1px rgba(0,0,0,.1);
+    text-align: center;
 }
 
 .custom-adds{
-    background:white; 
+    background:#581845; 
+    /*background: url(../static/pics/red-pattern.png);*/
+    opacity: 0.8;
     padding:1%;
     margin-bottom: 1.1rem; 
     font-size:20px;
-    border-left:14px solid #F64B4B;
-    border-right:14px solid #F64B4B;
+    font-family: 'Codystar', cursive;
+    /*border-left:14px solid #F64B4B;
+    border-right:14px solid #F64B4B;*/
     box-shadow: 1px 1px 4px 1px rgba(0,0,0,.1);
 }
 
@@ -433,7 +474,7 @@ a.custom-button-link:hover{
 }
 
 .custom-buy{
-    background: #336699;
+    background: #900C3F;
     color:white;
 }
 
@@ -443,13 +484,13 @@ a.custom-button-link:hover{
 }
 
 .custom-outline-button{
-    border: 1px solid #336699;
-    color: #336699;
+    border: 1px solid #900C3F;
+    color: #900C3F;
     border-radius:3px;
 }
 
 .custom-outline-button:hover{
-    background: #336699;
+    background: #900C3F;
     color: white;
 }
 
@@ -462,8 +503,6 @@ a.custom-button-link:hover{
     background: #84af84;
     color:white;
 }
-
-
 
 .custom-cart-title-l{
     margin-bottom:10px; 
@@ -480,7 +519,9 @@ a.custom-button-link:hover{
     padding-bottom: 1px;
     padding: 1px 0 1px 2%;    
     font-size: 200%;
-    font-weight: bold;        
+    font-weight: bold;
+    font-family: 'GFS Neohellenic', sans-serif; /*'Fredericka the Great', cursive;*/ /*'Macondo', cursive;*/
+    color: #581845;        
 }
 
 .custom-serch{
@@ -566,7 +607,7 @@ a.custom-cart-full{
   .custom-div-adds{
     width:100%; 
     height: auto; 
-    background: #99cc99 url(../pics/pattern-TRANSPARENT.png); 
+    background: #99cc99 url(../static/pics/pattern-TRANSPARENT.png);
     opacity: 0.9; 
     padding: 2%;  
     text-align:center;   
@@ -580,3 +621,55 @@ a.custom-cart-full{
       padding-right: 2%;
   }
 
+  .custom-ins-link{
+      color: #C70039;
+      text-decoration: none;
+  }
+
+  .custom-ins-link:hover{
+    color: #581845;
+    text-decoration: none;
+}
+
+.custom-bg-menu{
+    background: #900C3F;
+    opacity: 0.8;
+}
+
+.custom-text-white{
+    color:white;
+}
+
+.custom-background{
+    padding: 2% 2% 1% 2%;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    background: white; /*url(../static/pics/red-pattern.png);*/  
+    box-shadow: 1px 1px 10px 0 rgba(168, 132, 132, 0.1);  
+}
+
+.custom-welcome{
+    background:white; 
+    /*background: url(../static/pics/red-pattern.png);*/    
+    padding:1%;
+    margin-bottom: 1.1rem;
+    text-align: center;      
+    /*border-left:14px solid #F64B4B;
+    border-right:14px solid #F64B4B;*/
+    box-shadow: 1px 1px 4px 1px rgba(0,0,0,.1);
+}
+
+/* Message flashing */
+.flash {
+    background-color: #FBB0B0;
+    padding: 1%;
+    width: 100%;
+    margin-bottom:1%;
+  }
+
+  .flash2 {
+    color: #C70039;
+    padding: 1%;
+    width: 100%;
+    margin:1%;
+  }

@@ -1,0 +1,13 @@
+Hyvä {{ user.username }},
+
+Tervetuloa HIUSMAGIAAN!
+
+Vahvista tilisi napsauttamalla seuraavaa linkkiä:
+
+{{ url_for('auth.confirm', token=token, _external=True) }}
+
+Ystävällisin terveisin,
+
+HIUSMAGIAN tiimi
+
+Huom: Tähän sähköpostiosoitteeseen lähetettyjä viestejä ei tarkisteta.
