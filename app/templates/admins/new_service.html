@@ -31,7 +31,11 @@ HIUSMAGIA parturi kampaamo
 
                     <div class="col">
                         <!--<input type="date" class="form-control" name="date" id="date" value="" />-->                        
-                        {{ form.date(id="date", class="form-control mr-5") }}                        
+                        {{ form.date(id="date", class="form-control mr-5") }} 
+
+                        {% for message in form.date.errors %}
+                        <div class="flash2">{{ message }}</div>
+                        {% endfor %}                       
                     </div>
                 </div>
 
@@ -41,7 +45,11 @@ HIUSMAGIA parturi kampaamo
                      
                     <div class="col">
                         <!--<input type="time" class="form-control" name="time" id="time" value="" />-->
-                        {{ form.time(id="time", class="form-control mr-5") }} 
+                        {{ form.time(id="time", class="form-control mr-5") }}
+                        
+                        {% for message in form.time.errors %}
+                        <div class="flash2">{{ message }}</div>
+                        {% endfor %}     
                     </div>
                 </div>
 

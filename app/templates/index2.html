@@ -2,7 +2,52 @@
 {% block title %}
 HIUSMAGIA parturi kampaamo
 {% endblock %}
-{% block content %}    
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <div class="custom-welcome">
+        {% if current_user.admin != 1 %}
+            <h2>
+            Hyvä {% if current_user.is_authenticated %}<span style="text-transform:uppercase;">{{ current_user.username }}</span>{% else %}Stranger{% endif %}, tervetuloa HIUSMAGIAAN!
+            </h2>            
+            <!--Row starts-->
+            <div class="row">
+                <div class="col-xl-2"></div>
+                <div class="col-xl-4">
+                    <p><a href="{{ url_for('main.client_page') }}" class="btn btn-block mt-0 custom-green-buy">SELAA AIKATAULUJA JA PERUUTA AIKOJA</a></p>
+                </div> 
+                <div class="col-xl-4">
+                    <p><a href="{{ url_for('main.reservation') }}" class="btn btn-block mt-0 custom-green-buy">VARAA AIKA MEIDÄN OSAAJILLE</a></p>
+                </div>                               
+                <div class="col-xl-2"></div>                
+            </div> 
+            <!--Row ends-->            
+        
+        {% elif current_user.admin == 1 %}
+            <h2>
+            Administraattori {% if current_user.is_authenticated %}<span style="text-transform:uppercase;">{{ current_user.username }}</span>{% else %}Stranger{% endif %}, tervetuloa HIUSMAGIAAN!
+            </h2>           
+            <!--Row starts-->
+            <div class="row">
+                <div class="col-xl-2"></div>
+                <div class="col-xl-2">
+                    <p><a href="{{ url_for('main.admin_page') }}" class="btn btn-block mt-0 custom-green-buy">SELAA PALVELUITA</a></p>
+                </div>
+                <div class="col-xl-2">
+                    <p><a href="{{ url_for('main.new_service') }}" class="btn btn-block mt-0 custom-green-buy">LISÄÄ UUSI PALVELU</a></p>
+                </div>  
+                <div class="col-xl-2">
+                    <p><a href="{{ url_for('main.admin_page') }}" class="btn btn-block mt-0 custom-green-buy">MUOKAA PALVELU</a></p>
+                </div>
+                <div class="col-xl-2">
+                    <p><a href="{{ url_for('main.reservation_admin') }}" class="btn btn-block mt-0 custom-green-buy">NÄYTÄ VARAUKSET</a></p>
+                </div>               
+                <div class="col-xl-2"></div>                
+            </div> 
+            <!--Row ends-->            
+        {% endif %}
+        </div>
+        <p></p>
+    {% endif %}     
 
     <div class="custom-adds">
         <div class="row">

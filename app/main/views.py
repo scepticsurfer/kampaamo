@@ -15,9 +15,9 @@ from .. import mail
 
 
 #if you want redirection to customer/admin page after login:
-#problem is that loggedin user can't see frontpage
+#problem is that loggedin user can't see the frontpage
 #@main.route('/')
-#def index2():
+#def index():
     #if current_user.is_authenticated:
             #if current_user.admin != 1:
                 #return redirect(url_for("main.client_page"))
@@ -33,6 +33,10 @@ def index():
 @main.route("/company/company/") 
 def company():
     return render_template("company/company.html")
+
+@main.route("/company/fonts/") 
+def fonts():
+    return render_template("company/fonts.html")
 
 @main.route("/trainers/trainers/") 
 def trainers():

@@ -26,7 +26,26 @@ def unconfirmed():
         return redirect(url_for('main.index'))
     return render_template('auth/unconfirmed.html')
 
+#redirect to the frontpage after login
+#@auth.route('/login', methods=['GET', 'POST'])
+#def login():
+#    form = LoginForm()
+#    if form.validate_on_submit():
+#        user = User.query.filter_by(email=form.email.data.lower()).first()
+#        if user is not None and user.verify_password(form.password.data):
+#            if form.remember_me.data:
+#                duration_remember=timedelta(days=30)
+#                login_user(user, form.remember_me.data,duration_remember)
+#            else:
+#                login_user(user, form.remember_me.data)    
+#            next = request.args.get('next')
+#            if next is None or not next.startswith('/'):
+#                next = url_for('main.index')
+#            return redirect(next)
+#        flash('Virheellinen sähköpostiosoite tai salasana.')
+#    return render_template('auth/login.html', form=form)
 
+#redirect to user or admin pages after login
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -40,7 +59,11 @@ def login():
                 login_user(user, form.remember_me.data)    
             next = request.args.get('next')
             if next is None or not next.startswith('/'):
-                next = url_for('main.index')
+                if current_user.admin == 1:
+                    next = url_for('main.admin_page')
+                else:
+                    next = url_for('main.client_page')
+
             return redirect(next)
         flash('Virheellinen sähköpostiosoite tai salasana.')
     return render_template('auth/login.html', form=form)

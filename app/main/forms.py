@@ -67,15 +67,15 @@ class AddAdminServiceForm(FlaskForm):
     #    ]
    # ) 
     submit = SubmitField('Lisää')    
-   # def validate_date(self, field):
-   #    if str(field.data) <= str(date.today()):
-   #     raise ValidationError('Päivämäärä täyty olla myöhemmin kuin tänään.')
-   # def validate_time(self, field):
-   #     time_start = '08:00:00'
-   #     time_finish ='22:00:00'
-                             
-    # if str(field.data) < str(time_start) and str(field.data) > str(time_finish)  :
-    #        raise ValidationError('Aika täyty olla 8:00 ja 21:30 välillä.')  
+   
+    def validate_date(self, field):       
+        if str(field.data) <= str(date.today()):
+            raise ValidationError('Päivämäärä täytyy olla myöhemmin kuin tänään.')
+    def validate_time(self, field):
+        time_start = '08:00'
+        time_finish ='21:30'                                
+        if str(field.data) < str(time_start) or str(field.data) > str(time_finish):
+            raise ValidationError('Aika täytyy olla 8:00 ja 21:30 välillä.')
 
 class ChangeAdminServiceForm(FlaskForm):
     timetable_id = StringField('ID')    
@@ -102,15 +102,15 @@ class ChangeAdminServiceForm(FlaskForm):
         ]
     ) 
     submit = SubmitField('Muokaa')    
-   # def validate_date(self, field):
-   #    if str(field.data) <= str(date.today()):
-   #     raise ValidationError('Päivämäärä täyty olla myöhemmin kuin tänään.')
-   # def validate_time(self, field):
-   #     time_start = '08:00:00'
-   #     time_finish ='22:00:00'
-
-    # if str(field.data) < str(time_start) and str(field.data) > str(time_finish)  :
-    #        raise ValidationError('Aika täyty olla 8:00 ja 21:30 välillä.') 
+   
+    def validate_date(self, field):
+        if str(field.data) <= str(date.today()):
+            raise ValidationError('Päivämäärä täytyy olla myöhemmin kuin tänään.')
+    def validate_time(self, field):
+        time_start = '08:00'
+        time_finish ='21:30'                             
+        if str(field.data) < str(time_start) or str(field.data) > str(time_finish):
+            raise ValidationError('Aika täytyy olla 8:00 ja 21:30 välillä.') 
 
 class FeedbackForm(FlaskForm):
     username = StringField('Nimi', [validators.Required("Kirjoita nimesi.")]) 
