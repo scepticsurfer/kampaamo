@@ -12,7 +12,8 @@
         <div class="col-lg-8">
             
             <form class="custom-form" action="" method="post">
-                <h2 style="text-align: center;">VAIHDA SÄHKÖPOSTI</h2>               
+                <h2 style="text-align: center;">VAIHDA SÄHKÖPOSTI</h2>
+                    {{ form.hidden_tag() }}               
 
                 <div class="form-group">                    
                     {{ form.email.label }}                    

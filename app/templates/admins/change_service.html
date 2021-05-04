@@ -17,6 +17,7 @@ HIUSMAGIA parturi kampaamo
             <form class="custom-form" action="" method="post">
 
                 <h2 style="text-align: center;">MUOKAA PALVELU </h2>
+                    {{ form.hidden_tag() }}
 
                 
                 <div class="form-group row">
@@ -32,7 +33,7 @@ HIUSMAGIA parturi kampaamo
                                         
                     <div class="col">                                              
                         {{ form.date(id="date", class="form-control mr-5",value=date) }}
-                         
+
                         {% for message in form.date.errors %}
                         <div class="flash2">{{ message }}</div>
                         {% endfor %}                          

@@ -15,7 +15,8 @@ HIUSMAGIA parturi kampaamo
             <p></p>
             <form class="custom-form" action="" method="post">
 
-                <h2 style="text-align: center;">LISÄÄ PALVELU </h2>              
+                <h2 style="text-align: center;">LISÄÄ PALVELU </h2> 
+                        {{ form.hidden_tag() }}             
 
                     <div class="form-group row">
                         <!--<label class="col-sm-3 col-form-label">ID</label>-->
@@ -46,7 +47,7 @@ HIUSMAGIA parturi kampaamo
                     <div class="col">
                         <!--<input type="time" class="form-control" name="time" id="time" value="" />-->
                         {{ form.time(id="time", class="form-control mr-5") }}
-                        
+
                         {% for message in form.time.errors %}
                         <div class="flash2">{{ message }}</div>
                         {% endfor %}     
