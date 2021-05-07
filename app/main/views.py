@@ -14,7 +14,7 @@ from flask_mail import Message
 from .. import mail
 
 
-#if you want redirection to customer/admin page after login:
+#old way of redirection to customer/admin page after login:
 #problem is that loggedin user can't see the frontpage
 #@main.route('/')
 #def index():
@@ -74,6 +74,8 @@ def feedback():
 
         return render_template("contacts/feedback.html", success=True) 
     return render_template("contacts/feedback.html", form=form)      
+    
+    #old feedback page:
     #if request.method == 'POST':
     #    if form.validate() == False:
     #        
