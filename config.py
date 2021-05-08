@@ -12,9 +12,13 @@ class Config:
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     HIUSMAGIA_MAIL_SUBJECT_PREFIX = '[Hiusmagia]'
-    HIUSMAGIA_MAIL_SENDER = 'HIUSMAGIA <hiusmagiay@example.com>'
+    HIUSMAGIA_MAIL_SENDER = 'HIUSMAGIA <hiusmagia@example.com>'
     HIUSMAGIA_ADMIN = os.environ.get('HIUSMAGIA_ADMIN')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = os.environ.get('CLEARDB_DATABASE_URL')
+    SQLALCHEMY_ECHO = "debug"
+    WTF_CSRF_ENABLED = False 
+
 
     @staticmethod
     def init_app(app):
