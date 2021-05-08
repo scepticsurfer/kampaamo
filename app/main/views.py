@@ -14,20 +14,9 @@ from flask_mail import Message
 from .. import mail
 
 
-#old way of redirection to customer/admin page after login:
-#problem is that loggedin user can't see the frontpage
-#@main.route('/')
-#def index():
-    #if current_user.is_authenticated:
-            #if current_user.admin != 1:
-                #return redirect(url_for("main.client_page"))
-            #else:
-                #return redirect(url_for("main.admin_page"))
-    #else:
-        #return render_template('index.html')
 
 @main.route('/')
-def index():    
+def index():
     return render_template('index.html')
 
 @main.route("/company/company/") 
@@ -74,8 +63,6 @@ def feedback():
 
         return render_template("contacts/feedback.html", success=True) 
     return render_template("contacts/feedback.html", form=form)      
-    
-    #old feedback page:
     #if request.method == 'POST':
     #    if form.validate() == False:
     #        
@@ -108,7 +95,7 @@ def getClientServices():
         user_id=current_user.id
         # return jsonify(user_id)
     db = SQLAlchemy()
-    sql = text("SELECT `date`,`time`,service_name,`username`, service_registration.id FROM service_registration \
+    sql = text("SELECT `date`,DATE_FORMAT(time,'%H:%i') AS `time`,service_name,`username`, service_registration.id FROM service_registration \
                 LEFT JOIN services ON service_registration.service_id=services.id \
                 LEFT JOIN users ON service_registration.hairdresser_id=users.id \
                 WHERE client_id=" + str(user_id) + " AND `date`>='" + date_from + "' AND `date`<= '" + date_to +  "'")
@@ -206,7 +193,7 @@ def servicesAvailable():
         if (hairdresser_id!=""):
             query_part=" AND (hairdresser_id='"+ str(hairdresser_id) + "')"
      
-    sql = text("SELECT `date`,`time`,service_name,`username`, service_timetable.id, price\
+    sql = text("SELECT `date`, DATE_FORMAT(time,'%H:%i') AS `time`,service_name,`username`, service_timetable.id, price\
                 FROM service_timetable\
                 LEFT JOIN services ON service_timetable.service_id=services.id\
                 LEFT JOIN users ON service_timetable.hairdresser_id=users.id\
@@ -309,7 +296,7 @@ def servicesAvailableAdmin():
         if (hairdresser_id!=""):
             query_part=" AND (hairdresser_id='"+ str(hairdresser_id) + "')"
      
-    sql = text("SELECT `date`,`time`,service_name,`username`, service_timetable.id, price, status\
+    sql = text("SELECT `date`,DATE_FORMAT(time,'%H:%i') AS `time`,service_name,`username`, service_timetable.id, price, status\
                 FROM service_timetable\
                 LEFT JOIN services ON service_timetable.service_id=services.id\
                 LEFT JOIN users ON service_timetable.hairdresser_id=users.id\
@@ -360,7 +347,7 @@ def servicesRegistration():
         if (hairdresser_id!=""):
             query_part=" AND (hairdresser_id='"+ str(hairdresser_id) + "')"
      
-    sql = text("SELECT service_registration.id,`date`,`time`,service_name,`username`,client_id\
+    sql = text("SELECT service_registration.id,`date`,DATE_FORMAT(time,'%H:%i') AS `time`,service_name,`username`,client_id\
                 FROM service_registration\
                 LEFT JOIN services ON service_registration.service_id=services.id\
                 LEFT JOIN users ON service_registration.hairdresser_id=users.id\
