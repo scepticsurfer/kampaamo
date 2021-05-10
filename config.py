@@ -15,6 +15,9 @@ class Config:
     HIUSMAGIA_MAIL_SENDER = 'HIUSMAGIA <hiusmagia@example.com>'
     HIUSMAGIA_ADMIN = os.environ.get('HIUSMAGIA_ADMIN')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_recycle': 120
+    }
     #SQLALCHEMY_DATABASE_URI = os.environ.get('CLEARDB_DATABASE_URL')
     #SQLALCHEMY_ECHO = "debug"
     #WTF_CSRF_ENABLED = False 
