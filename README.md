@@ -1,4 +1,4 @@
-# School project for Web-ohjelmointikoulutus (Omnia). 
+# School project for Web programming course in Omnia www.omnia.fi. 
 # Hairdressing salon's website that contains:
 <br>-search system
 <br>-user management system
